@@ -40,5 +40,3 @@ else:
         os.system(systemctl_cmd)
     else:
         message = "a2d_core.timer is not running. Systemd configuration reload skipped."
-
-# Handle the message as desired (e.g., write to a log file, send a notification, etc.)
