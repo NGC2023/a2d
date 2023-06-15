@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Create the system user with no login shell
+adduser --system --group --no-create-home --shell /usr/sbin/nologin a2d
+
+# Continue with package installation
+exit 0

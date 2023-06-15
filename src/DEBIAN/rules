@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode
+# export DH_VERBOSE=1
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	# Run the original installation process
+	dh_auto_install
+
+override_dh_auto_clean:
+	# Add additional cleanup steps here
+	# Remove leftover files and directories
+	# ...
+
+.PHONY: override_dh_auto_install override_dh_auto_clean

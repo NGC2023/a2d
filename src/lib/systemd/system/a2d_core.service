@@ -1,0 +1,15 @@
+[Unit]
+Description=Your Service
+Wants=network-online.target
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+User=a2d
+ExecStart=/usr/bin/a2d.sh
+Restart=always
+RestartSec=15min
+KillMode=control-group
+
+[Install]
+WantedBy=multi-user.target
