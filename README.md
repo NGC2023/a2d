@@ -21,7 +21,7 @@ Follow these steps to configure and use a2d:
 
 ### Step 1: User Information
 
-Once the `a2d.deb` package is installed, open the terminal and run `a2d_user.sh`. This will open the user information file as shown below:
+Once the `a2d_1.0.0_all.deb` package is installed, open the terminal and run `a2d_user.sh`. This will open the user information file as shown below: (Download the latest package from GitHub Releases).
 
 [DEFAULT]
 
