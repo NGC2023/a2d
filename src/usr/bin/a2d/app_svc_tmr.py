@@ -1,7 +1,7 @@
 import configparser
 import os
 
-# Read the configuration file
+# Read the configuration file.
 config = configparser.ConfigParser()
 config.read("/etc/a2d/adv_conf.ini")
 

@@ -10,4 +10,4 @@ if ! systemctl is-active --quiet a2d_core.timer; then
     sudo systemctl enable a2d_core.timer
 fi
 
-echo "a2d services started."
+echo "a2d services started. "

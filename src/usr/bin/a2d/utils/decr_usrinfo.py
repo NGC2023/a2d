@@ -24,14 +24,3 @@ def retrieve_usrinfo():
             data_dict[key] = value
 
     return data_dict
-
-# Call the function to retrieve data
-#user_data = retrieve_usrinfo()
-
-# Check if data was retrieved successfully
-#if user_data:
-    # Print the retrieved data
-#    for key, value in user_data.items():
-#        print(f"{key}: {value}")
-#else:
-#    print("Failed to retrieve user data.")
