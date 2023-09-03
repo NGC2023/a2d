@@ -1,0 +1,30 @@
+#!/bin/sh
+
+##Set default nginx setting
+sudo rm /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo systemctl reload nginx
+
+#Reload systemctl
+sudo systemctl daemon-reload
+
+#Remove user conf files
+case "$1" in
+    purge)
+        # Remove the user-generated configuration file
+        sudo rm -r /etc/a2d
+        sudo rm -r /var/lib/a2d
+        sudo rm -r /var/log/a2d
+        # Wrapper script path
+        WRAPPER_SCRIPT="/usr/local/bin/gunicorn_wrapper"
+
+        # Remove the wrapper script for gunicorn
+        rm -f "$WRAPPER_SCRIPT"
+        ;;
+
+    *)
+        # For other cases, do nothing
+        ;;
+esac
+
+exit 0

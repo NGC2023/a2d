@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/cdn_bootstrap_5-3_min.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap_docs_5-3.css') }}">
+      <script src="{{ url_for('static', filename='bootstrap/js/cdn_bootstrap_5-3_bundle_min.js') }}"></script>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,200,0,200" />
+      <title>a2d Dashboard</title>
+      <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo_clearbg.png') }}">
+  </head>
+  
+  <body class="p-3 m-0 border-0 bd-example m-0 border-0">
+    <script src="{{ url_for('static', filename='js/dns.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap_5-3_mode.js') }}"></script>
+
+    <!-- Navbar -->
+    {% include 'navbar_dns.html' %}
+
+    <!-- DNS Status -->
+    <div class="container-fluid" style="margin-left: 0px;">
+      <div class="row justify-content-md-center"></div>
+          <h6 style="font-size: 18px; align-items: center;"><span class="material-symbols-outlined">dns</span>&nbsp;&nbsp;Server Status<br></h6>
+          <div class="alert alert-warning" role="alert" style="margin-right: 0px;">
+            <a style="font-size: 14px">
+              <span id="nginx-status"></span><br>
+              <span id="gunicorn-status"></span><br>
+              <span id="listen-port"></span><br> 
+              <span id="server-name"></span><br>
+              <span id="current-ssl-status"></span><br>
+              <span id="common-name"></span><br>
+              <span id="organization-name"></span><br>
+              <span id="expiry-date"></span><br>
+            </a>
+          </div>
+      </div>
+
+    <!-- Network Health -->
+    <div class="container-fluid" style="margin-left: 0px;">
+      <div class="row justify-content-md-center"></div><br>
+          <h6 style="font-size: 17px"><span class="material-symbols-outlined">link</span>&nbsp;&nbsp;Network Health</h6>
+          <div class="alert alert-secondary" role="alert" style="margin-right: 0px;">
+            <a style="font-size: 14px">
+              <span id="aprs-rtt"></span><br> 
+              <span id="dapnet-rtt"></span><br></a>
+          </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/heartbeat.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/input_cursor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/clean_pin.js') }}"></script>
+  </body>
+</html>

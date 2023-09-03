@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Check if start_a2d service is running
+echo "Stopping a2d services ..."
+
+sudo systemctl stop a2d.service
+sudo systemctl disable a2d.service
+
+# Delete leftover files
+sudo rm -r /usr/bin/a2d
+sudo rm -r /usr/share/a2dapp
+
+#Remove sudo permission for a2d
+if [ -e "/etc/sudoers.d/a2d_privileges*" ]; then
+    sudo rm /etc/sudoers.d/a2d_privileges* > /dev/null 2>&1
+fi
+
+# Backup corn if upgrade
+crontab -u a2d -l > /etc/a2d/a2d_crontab.txt
+
+# Remove the user and associated group
+sudo deluser --system a2d > /dev/null 2>&1

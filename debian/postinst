@@ -1,0 +1,74 @@
+#!/bin/sh
+
+set -e
+
+#Database directories ownership and permissions
+if [ ! -d "/var/lib/a2d/dbs" ]; then
+    mkdir -p /var/lib/a2d/dbs
+    sudo chown -R a2d:a2d /var/lib/a2d
+fi
+
+if [ ! -d "/var/log/a2d" ]; then
+    mkdir -p /var/log/a2d
+    touch /var/log/a2d/a2d_gu_error.log
+    sudo chown -R a2d:a2d /var/log/a2d
+fi
+
+#User info directory ownership and permissions
+sudo chown -R a2d:a2d /etc/a2d
+sudo chmod +x etc/a2d/a2d_adv_conf.ini
+sudo chmod +x etc/a2d/dapnet_data.ini
+sudo chmod +x etc/a2d/runscript_data.ini
+
+#Program main directory ownership and permissions
+sudo chown -R a2d:a2d /usr/bin/a2d
+sudo chmod -R +x /usr/bin/a2d
+
+#Set for system services under a2d
+sudo chown a2d:a2d /lib/systemd/system/a2d.service
+sudo chmod 644 /lib/systemd/system/a2d.service
+
+sudo chown -R a2d:a2d /usr/share/a2dapp
+
+# Start HTML app server
+sudo systemctl start a2d.service
+sudo systemctl enable a2d.service
+sudo systemctl daemon-reload
+
+#Create link to enable a2dapp in nginx and reload
+sudo chown a2d:a2d /etc/nginx/sites-available/a2dapp
+#Replace default nginx with a2d config
+sudo rm /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/a2dapp /etc/nginx/sites-enabled/default
+sudo systemctl reload nginx
+
+#Create ssl directory
+if [ ! -d "/etc/nginx/ssl/" ]; then
+    mkdir -p /etc/nginx/ssl/
+fi
+
+#Sudo permission for a2d to reload nginx
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_nginx_reload.sh" | sudo tee /etc/sudoers.d/a2d_privileges1 > /dev/null
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_self_ssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges2 > /dev/null
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_ca_ssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges3 > /dev/null
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_read_ssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges4 > /dev/null
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_ca_list.sh" | sudo tee /etc/sudoers.d/a2d_privileges5 > /dev/null
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_rm_cassl.sh" | sudo tee /etc/sudoers.d/a2d_privileges6 > /dev/null
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_rm_selfssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges7 > /dev/null
+
+#sudo sh and py convert to +x
+sudo chmod +x /usr/share/scripts/a2d*.sh
+
+#For cron- Check if the user "a2d" exists
+if id -u a2d >/dev/null 2>&1; then
+    # Check if the a2d_crontab.txt file exists
+    if [ -e "/etc/a2d/a2d_crontab.txt" ]; then
+        # Create or modify the crontab file for user "a2d" using the contents of a2d_crontab.txt
+        cat /etc/a2d/a2d_crontab.txt | crontab -u a2d -
+    else
+        # If a2d_crontab.txt doesn't exist, just create an empty crontab for user "a2d"
+        echo "# a2d crontab" | crontab -u a2d -
+    fi
+fi
+
+exit 0

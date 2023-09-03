@@ -1,0 +1,28 @@
+<nav class="navbar sticky-top navbar-expand-lg bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/" style="font-size: 15px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <img src="{{ url_for('static', filename='images/logo_clearbg.png') }}" alt="a2d" width="50" height="50" class="d-inline-block align-text-center">&nbsp;&nbsp;
+      APRS to DAPNET portal
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-bs-target="#configBackdrop" style="cursor: pointer;" href="/help-short" title="Info"><span class="material-symbols-outlined">info</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Mode"><span class="material-symbols-outlined">settings_night_sight</span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" id="toggle-light" data-bs-theme-value="light"><span class="material-symbols-outlined">light_mode</span>&nbsp;&nbsp;Light</a></li>
+              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" id="toggle-dark" data-bs-theme-value="dark"><span class="material-symbols-outlined">dark_mode</span>&nbsp;&nbsp;Dark</a></li>
+              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" id="toggle-auto" data-bs-theme-value="auto"><span class="material-symbols-outlined">brightness_medium</span>&nbsp;&nbsp;Auto</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,9 +1,0 @@
-Package: a2d
-Version: 1.0.0
-Section: hamradio
-Priority: optional
-Architecture: all
-Depends: python3, python3-cryptography, nano, python3-requests
-Size: 200000
-Maintainer: NY3W <kd8mbd@gmail.com>
-Description: APRS to DAPNET Service

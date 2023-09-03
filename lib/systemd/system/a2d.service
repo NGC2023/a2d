@@ -1,0 +1,15 @@
+[Unit]
+Description=a2d HTML app
+Wants=network-online.target
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+User=a2d
+Group=a2d
+WorkingDirectory=/usr/share/a2dapp
+ExecStart=/usr/local/bin/gunicorn_wrapper app:app -c /usr/share/a2dapp/gunicorn_config.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

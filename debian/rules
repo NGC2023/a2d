@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode
+# export DH_VERBOSE=1
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	# If there are any specific build commands or scripts needed, include them here.
+	# For example:
+	# $(MAKE) all
+
+override_dh_auto_install:
+	# Create the destination directory
+	mkdir -p debian/a2d/etc/
+	mkdir -p debian/a2d/lib/
+	mkdir -p debian/a2d/usr/
+	
+	# Install files to the respective destination directories
+	cp -r etc/* debian/a2d/etc/
+	cp -r lib/* debian/a2d/lib/
+	cp -r usr/* debian/a2d/usr/
+
+override_dh_auto_clean:
+	# Clean any build artifacts and remove temporary files.
+	# For example:
+	# $(MAKE) clean
