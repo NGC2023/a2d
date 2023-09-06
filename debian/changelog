@@ -1,4 +1,4 @@
-a2d (2.0.0) stable; urgency=medium
+a2d (2.0.0-1) stable; urgency=medium
 
   * New features:
     - Added a Flask web app with a user-friendly UI for a2d.
