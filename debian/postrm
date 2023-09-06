@@ -1,30 +1,55 @@
 #!/bin/sh
 
-##Set default nginx setting
-sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-sudo systemctl reload nginx
+set -e
 
-#Reload systemctl
-sudo systemctl daemon-reload
+#DEBHELPER#
+
+#Set default nginx setting
+rm /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+deb-systemd-invoke reload nginx
 
 #Remove user conf files
 case "$1" in
     purge)
         # Remove the user-generated configuration file
-        sudo rm -r /etc/a2d
-        sudo rm -r /var/lib/a2d
-        sudo rm -r /var/log/a2d
+        rm -r /etc/a2d
+        rm -r /var/lib/a2d
+        rm -r /var/log/a2d
         # Wrapper script path
         WRAPPER_SCRIPT="/usr/local/bin/gunicorn_wrapper"
 
         # Remove the wrapper script for gunicorn
         rm -f "$WRAPPER_SCRIPT"
+
+        #Remove a2d user
+        if id a2d; then
+            deluser --system a2d
+        fi
+
+        # Delete leftover files
+        if [ -e "/usr/share/a2d" ]; then
+            rm -r /usr/share/a2d
+        fi
+
+        if [ -e "/usr/share/a2dapp" ]; then
+            rm -r /usr/share/a2dapp
+        fi
         ;;
 
     *)
         # For other cases, do nothing
         ;;
+esac
+
+case "$1" in
+  remove|purge)
+    # De-register the init script when the package is removed or purged
+    update-rc.d -f a2d remove > /dev/null
+    ;;
+  upgrade|failed-upgrade|abort-install|abort-upgrade|abort-remove|abort-deconfigure)
+    # Handle other package states or actions as needed
+    ;;
 esac
 
 exit 0

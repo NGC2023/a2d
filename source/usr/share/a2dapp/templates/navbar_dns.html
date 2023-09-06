@@ -1,0 +1,263 @@
+<nav class="navbar sticky-top navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/" style="font-size: 15px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <img src="{{ url_for('static', filename='images/logo_clearbg.png') }}" alt="a2d" width="50" height="50" class="d-inline-block align-text-center">&nbsp;&nbsp;
+        APRS to DAPNET portal
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="container">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Dashboard</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Options">Options</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#serverBackdrop" style="cursor: pointer;">Server Configuration</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#SelfSSLBackdrop" style="cursor: pointer;">Self Signed SSL</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#caSSLBackdrop" style="cursor: pointer;">CA Signed SSL</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#pinBackdrop" style="cursor: pointer;">Change PIN</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#resetBackdrop" style="cursor: pointer;">Reset Portal</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/help-full">Info</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Mode">Mode</a>
+              <ul class="dropdown-menu">
+                <li><a href="#" class="dropdown-item" data-bs-toggle="modal" id="toggle-light" data-bs-theme-value="light">Light</a></li>
+                <li><a href="#" class="dropdown-item" data-bs-toggle="modal" id="toggle-dark" data-bs-theme-value="dark">Dark</a></li>
+                <li><a href="#" class="dropdown-item" data-bs-toggle="modal" id="toggle-auto" data-bs-theme-value="auto">Auto</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <li><a class="nav-link" href="/logout" title="Logout">Exit</a></li>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Server Config -->
+  <div class="modal fade" id="serverBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Server Configuration</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+          <form id="serverForm" action="/server-config" method="post">
+            <div class="modal-body">
+
+              <label for="listen_port" class="form-label">Listen Port:</label>
+              <input type="number" class="form-control" id="listen_port" name="listen_port" min="1" max="65536" value="{{ listen_port }}" style="width: 160px;" required><br>
+              <label for="server_name" class="form-label">Server Name:</label>
+              <input type="text" class="form-control" id="server_name" name="server_name" value="{{ server_name }}" required><br>
+
+              <div class="form-check form-switch">
+              <input type="checkbox" class="form-check-input" role="switch" id="enable_ssl" name="enable_ssl">
+              <label for="enable_ssl" class="form-check-label">Self Signed SSL</label>&nbsp;&nbsp;<span style="font-size: 14px; font-style: italic;">(443  i.e., https)</span></div><br>
+
+              <label for="set_cassl_certs" class="form-label">CA Certificates:</label>
+              <select class="form-select" id="set_cassl_certs" name="set_cassl_certs">
+              <option value="" selected>Select</option>
+              {% for ca_cert in cassl_certs %}
+                  <option value="{{ ca_cert }}">{{ ca_cert }}</option>
+              {% endfor %}
+              </select><br>
+              
+              <div class="form-check form-switch">
+              <input type="checkbox" class="form-check-input" role="switch" id="enable_cassl" name="enable_cassl">
+              <label for="enable_cassl" class="form-check-label">CA Signed SSL</label>&nbsp;&nbsp;<span style="font-size: 14px; font-style: italic;">(443  i.e., https)</span></div><br>
+
+              <div class="form-check form-switch">
+              <input type="checkbox" class="form-check-input" role="switch" id="set_default_dns" name="set_default_dns">
+              <label for="set_default_dns" class="form-check-label">a2d Default Values</label>&nbsp;&nbsp;<span style="font-size: 14px; font-style: italic;">(9331, Server Name: _ )</span></div><br>
+              <input type="hidden" id="checkbox_clicked" name="checkbox_clicked" value=""><br>
+
+              <p><b>SSL Configuration</b></p>
+              <a data-bs-toggle="modal" data-bs-target="#SelfSSLBackdrop" style="cursor: pointer;" class="btn btn-outline-success btn-sm">Self Signed SSL</a>&nbsp;&nbsp;&nbsp;&nbsp;
+              <a data-bs-toggle="modal" data-bs-target="#caSSLBackdrop" style="cursor: pointer;" class="btn btn-outline-success btn-sm">CA Signed SSL</a><br><br>
+
+              <!-- Server status message element -->
+                <span id="server-message" style="color: #d4660c; font-weight: bold;"></span>
+              </div>
+            
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+
+  <!-- Self-signed SSL -->
+  <div class="modal fade" id="SelfSSLBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Generate Self Signed SSL</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="selfSSLForm" action="/gen-self-signed-ssl" method="POST">
+            <div class="modal-body">
+            <label for="common_name" class="form-label">Common Name (CN):</label>
+            <input type="text" class="form-control" id="common_name" name="common_name" value="{{ stored_selfcommon_name }}" required><br>
+            <label for="validity_days" class="form-label">Validity Period (days):</label>
+            <input type="number" class="form-control" id="validity_days" name="validity_days" min="1" value="365" style="width: 160px;" required><br>
+            <label for="organization_name" class="form-label">Organization Name (O):</label>
+            <input type="text" class="form-control" id="organization_name" name="organization_name" value="{{ stored_selforganization_name }}"><br>
+            <p><b>Server Configuration</b></p>
+            <a data-bs-toggle="modal" data-bs-target="#serverBackdrop" style="cursor: pointer;" class="btn btn-outline-primary btn-sm">Server Config</a><br><br>
+            <!-- selfSSL status message element -->
+                <span id="selfssl-message" style="color: #d4660c; font-weight: bold;"></span>
+              </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Generate Self SSL</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+
+  <!-- CA-signed SSL -->
+  <div class="modal fade" id="caSSLBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Generate CA Signed SSL</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="caSSLForm" action="/gen-ca-ssl" method="POST">
+              <div class="modal-body">
+              <label for="ca_common_name" class="form-label">Common Name (CN):</label>
+              <input type="text" class="form-control" id="ca_common_name" name="ca_common_name" required><br>
+              <label for="email_id" class="form-label">Email ID:</label>
+              <input type="email" class="form-control" id="email_id" name="email_id" required><br>
+              <p><b>Server Configuration</b></p>
+              <a data-bs-toggle="modal" data-bs-target="#serverBackdrop" style="cursor: pointer;" class="btn btn-outline-primary btn-sm">Server Config</a>&nbsp;&nbsp;&nbsp;&nbsp;
+              <a data-bs-toggle="modal" data-bs-target="#rmcaSSLBackdrop" style="cursor: pointer;" class="btn btn-outline-danger btn-sm">Delete CA SSL</a><br><br>
+              <!-- CA status message element -->
+                  <span id="cassl-message" style="color: #d4660c; font-weight: bold;"></span>
+                </div>
+              <div class="modal-footer">
+              &nbsp;
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Generate CA SSL</button>
+              </div>
+          </form>
+          </div>
+      </div>
+      </div>
+
+  <!-- Change PIN -->
+  <div class="modal fade" id="pinBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">New PIN</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearPinFields()"></button>
+        </div>
+        <form id="pinForm" action="/pin-change" method="POST">
+          <div class="modal-body" style="display: flex; justify-content: center; align-items: center; margin-top: 12px;">
+            <div class="mb-3">
+                <input type="password" name="digit1" inputmode="numeric" pattern="[0-9]" maxlength="1" style="width: 30px;" required oninput="moveToNext(this, 'digit2')">
+                <input type="password" name="digit2" inputmode="numeric" pattern="[0-9]" maxlength="1" style="width: 30px;" required oninput="moveToNext(this, 'digit3')">
+                <input type="password" name="digit3" inputmode="numeric" pattern="[0-9]" maxlength="1" style="width: 30px;" required oninput="moveToNext(this, 'digit4')">
+                <input type="password" name="digit4" inputmode="numeric" pattern="[0-9]" maxlength="1" style="width: 30px;" required oninput="moveToNext(this, 'digit5')">
+                <input type="password" name="digit5" inputmode="numeric" pattern="[0-9]" maxlength="1" style="width: 30px;" required oninput="moveToNext(this, 'digit6')">
+                <input type="password" name="digit6" inputmode="numeric" pattern="[0-9]" maxlength="1" style="width: 30px;" required>
+            </div>
+          </div>
+          <div class="modal-footer" style="display: flex; justify-content: center; align-items: center;">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearPinFields()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Remove CA SSL -->
+  <div class="modal fade" id="rmcaSSLBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete CA SSL</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="rmcaSSLForm" action="/rm-ca-ssl" method="POST">
+            <div class="modal-body">
+            
+              <label for="rm_cassl_certs" class="form-label">CA Certificates:</label>
+              <select class="form-select" id="rm_cassl_certs" name="rm_cassl_certs">
+              <option value="" selected>Select</option>
+              {% for ca_cert in cassl_certs %}
+                  <option value="{{ ca_cert }}">{{ ca_cert }}</option>
+              {% endfor %}
+              </select><br>
+            
+            <p><b>Server Configuration</b></p>
+            <a data-bs-toggle="modal" data-bs-target="#serverBackdrop" style="cursor: pointer;" class="btn btn-outline-primary btn-sm">Server Config</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a data-bs-toggle="modal" data-bs-target="#caSSLBackdrop" style="cursor: pointer;" class="btn btn-outline-success btn-sm">CA Signed SSL</a><br><br>
+            <!-- CA status message element -->
+                <span id="rmcassl-message" style="color: #d4660c; font-weight: bold;"></span>
+              </div>
+            <div class="modal-footer">
+            &nbsp;
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">Delete CA SSL</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+
+    <!-- Reset portal -->
+  <div class="modal fade" id="resetBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Factory Reset Portal</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form id="resetForm" action="/reset-portal" method="POST">
+            <div class="modal-body">
+            <h4 style="color: red;">Warning:</h4>
+            <h6 style="color: #d4660c;">Performing this action will result in the deletion of all user files and a factory reset of a2d</h6>
+            <h6 style="color: #d4660c;">Deleting any SSL certificates will result in the restoration of default a2d server settings. If you choose to delete SSL, access a2d using default port '9331'</h6></br>
+          
+            <label for="passphrase" class="form-label">Enter Passphrase:</label>
+            <input type="password" class="form-control" id="passphrase" name="passphrase"><br>
+
+            <label for="reset_confirm" class="form-label">Type DELETE to Confirm Factory Reset:</label>
+            <input type="text" class="form-control" id="reset_confirm" name="reset_confirm" required><br>
+
+            <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-input" role="switch" id="self_ssl_delete" name="self_ssl_delete">
+            <label for="self_ssl_delete" class="form-check-label">Delete Self Signed SSL cert</label></div><br>
+
+            <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-input" role="switch" id="ca_ssl_delete" name="ca_ssl_delete">
+            <label for="ca_ssl_delete" class="form-check-label">Delete ALL CA Signed SSL certs</label></div><br>
+
+            <!-- CA status message element -->
+                <span id="reset-message" style="color: #d4660c; font-weight: bold;"></span>
+              </div>
+            <div class="modal-footer">
+            &nbsp;
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">Factory Reset</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>

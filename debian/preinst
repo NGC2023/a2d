@@ -1,7 +1,15 @@
 #!/bin/sh
 
+set -e
+
+#DEBHELPER#
+
 # Create the system user with no login shell
-adduser --system --group --no-create-home --shell /usr/sbin/nologin --disabled-password a2d > /dev/null 2>&1
+if id a2d; then
+    echo "a2d user exist"
+else
+    adduser --system --group --no-create-home --home /nonexistent --shell /usr/sbin/nologin --disabled-password a2d
+fi
 
 # Wrapper script path for gunicorn due to unavilability of apt gu in system resource
 WRAPPER_SCRIPT="/usr/local/bin/gunicorn_wrapper"
@@ -10,10 +18,10 @@ WRAPPER_SCRIPT="/usr/local/bin/gunicorn_wrapper"
 WRAPPER_CONTENT="#!/bin/sh\necho \"Wrapper script is executing.\"\n/usr/bin/python3 -m gunicorn \"\$@\"\n"
 
 # Create the wrapper script
-echo "$WRAPPER_CONTENT" | sudo tee "$WRAPPER_SCRIPT" > /dev/null
+echo "$WRAPPER_CONTENT" | tee "$WRAPPER_SCRIPT"
 
 # Set execute permissions for the wrapper script
-sudo chmod +x "$WRAPPER_SCRIPT"
+chmod +x "$WRAPPER_SCRIPT"
 
 # Continue with package installation
 exit 0

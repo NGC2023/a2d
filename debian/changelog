@@ -1,4 +1,4 @@
-a2d (2.0.0-1) unstable; urgency=medium
+a2d (2.0.0) stable; urgency=medium
 
   * New features:
     - Added a Flask web app with a user-friendly UI for a2d.
@@ -30,4 +30,4 @@ a2d (2.0.0-1) unstable; urgency=medium
     - Enhanced session handling and included auto logout feature.
     - Included clear notifications and feedback messages in the UI based on user interactions.
 
- -- Yogeswaran Umasankar, NY3W <kd8mbd@gmail.com>  Tue, 01 Sep 2023 12:00:00 +0000
+ -- Yogeswaran Umasankar <kd8mbd@gmail.com>  Mon, 04 Sep 2023 02:40:58 -0400

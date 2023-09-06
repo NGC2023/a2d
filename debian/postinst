@@ -2,65 +2,129 @@
 
 set -e
 
+#DEBHELPER#
+
 #Database directories ownership and permissions
 if [ ! -d "/var/lib/a2d/dbs" ]; then
     mkdir -p /var/lib/a2d/dbs
-    sudo chown -R a2d:a2d /var/lib/a2d
+    chown a2d:a2d /var/lib/a2d/dbs
+    chown a2d:a2d /var/lib/a2d
 fi
 
 if [ ! -d "/var/log/a2d" ]; then
     mkdir -p /var/log/a2d
     touch /var/log/a2d/a2d_gu_error.log
-    sudo chown -R a2d:a2d /var/log/a2d
+    chown a2d:a2d /var/log/a2d/a2d_gu_error.log
+    chown a2d:a2d /var/log/a2d
 fi
 
 #User info directory ownership and permissions
-sudo chown -R a2d:a2d /etc/a2d
-sudo chmod +x etc/a2d/a2d_adv_conf.ini
-sudo chmod +x etc/a2d/dapnet_data.ini
-sudo chmod +x etc/a2d/runscript_data.ini
+chown a2d:a2d /etc/a2d
+chown a2d:a2d /etc/a2d/a2d_adv_conf.ini
+chown a2d:a2d /etc/a2d/dapnet_data.ini
+chown a2d:a2d /etc/a2d/runscript_data.ini
+
+chmod +x /etc/a2d/a2d_adv_conf.ini
+chmod +x /etc/a2d/dapnet_data.ini
+chmod +x /etc/a2d/runscript_data.ini
 
 #Program main directory ownership and permissions
-sudo chown -R a2d:a2d /usr/bin/a2d
-sudo chmod -R +x /usr/bin/a2d
+#a2d dir
+chown a2d:a2d /usr/share/a2d/utils/__init__.py
+chown a2d:a2d /usr/share/a2d/utils/decr_usrinfo.py
+chown a2d:a2d /usr/share/a2d/utils/get_aprs.py
+chown a2d:a2d /usr/share/a2d/utils/post_dapnet.py
+chown a2d:a2d /usr/share/a2d/utils/pseudo_aprs_utils.py
+chown a2d:a2d /usr/share/a2d/utils/utils.py
+chown a2d:a2d /usr/share/a2d/utils
+chown a2d:a2d /usr/share/a2d/__init__.py
+chown a2d:a2d /usr/share/a2d/build_usrdbs.py
+chown a2d:a2d /usr/share/a2d/pseudorun.py
+chown a2d:a2d /usr/share/a2d/push_a2d.py
+chown a2d:a2d /usr/share/a2d/runscripts.py
+chown a2d:a2d /usr/share/a2d
+#a2dapp dir
+chown a2d:a2d /usr/share/a2dapp/modals/__init__.py
+chown a2d:a2d /usr/share/a2dapp/modals/creds.py
+chown a2d:a2d /usr/share/a2dapp/modals/user.py
+chown a2d:a2d /usr/share/a2dapp/modals
+chown a2d:a2d /usr/share/a2dapp/routes/__init__.py
+chown a2d:a2d /usr/share/a2dapp/routes/auth.py
+chown a2d:a2d /usr/share/a2dapp/routes/config.py
+chown a2d:a2d /usr/share/a2dapp/routes/data.py
+chown a2d:a2d /usr/share/a2dapp/routes/dns.py
+chown a2d:a2d /usr/share/a2dapp/routes/handle_db.py
+chown a2d:a2d /usr/share/a2dapp/routes/network.py
+chown a2d:a2d /usr/share/a2dapp/routes/reset.py
+chown a2d:a2d /usr/share/a2dapp/routes/run.py
+chown a2d:a2d /usr/share/a2dapp/routes/system.py
+chown a2d:a2d /usr/share/a2dapp/routes
+chown a2d:a2d /usr/share/a2dapp/static/bootstrap/css/bootstrap_docs_5-3.css
+chown a2d:a2d /usr/share/a2dapp/static/bootstrap/css/cdn_bootstrap_5-3_min.css
+chown a2d:a2d /usr/share/a2dapp/static/bootstrap/css
+chown a2d:a2d /usr/share/a2dapp/static/bootstrap/js/bootstrap_5-3_mode.js
+chown a2d:a2d /usr/share/a2dapp/static/bootstrap/js/cdn_bootstrap_5-3.js
+chown a2d:a2d /usr/share/a2dapp/static/bootstrap/js
+chown a2d:a2d /usr/share/a2dapp/static/bootstrap
+chown a2d:a2d /usr/share/a2dapp/static/images/logo_clearbg.png
+chown a2d:a2d /usr/share/a2dapp/static/images
+chown a2d:a2d /usr/share/a2dapp/static/js/clean_pin.js
+chown a2d:a2d /usr/share/a2dapp/static/js/dns.js
+chown a2d:a2d /usr/share/a2dapp/static/js/export_import.js
+chown a2d:a2d /usr/share/a2dapp/static/js/heartbeat.js
+chown a2d:a2d /usr/share/a2dapp/static/js/input_cursor.js
+chown a2d:a2d /usr/share/a2dapp/static/js/log_updates.js
+chown a2d:a2d /usr/share/a2dapp/static/js/login_buttons.js
+chown a2d:a2d /usr/share/a2dapp/static/js/status.js
+chown a2d:a2d /usr/share/a2dapp/static/js
+chown a2d:a2d /usr/share/a2dapp/static
+chown a2d:a2d /usr/share/a2dapp/templates/dns.html
+chown a2d:a2d /usr/share/a2dapp/templates/help_full.html
+chown a2d:a2d /usr/share/a2dapp/templates/help_short.html
+chown a2d:a2d /usr/share/a2dapp/templates/help.html
+chown a2d:a2d /usr/share/a2dapp/templates/index.html
+chown a2d:a2d /usr/share/a2dapp/templates/login.html
+chown a2d:a2d /usr/share/a2dapp/templates/navbar_dash.html
+chown a2d:a2d /usr/share/a2dapp/templates/navbar_dns.html
+chown a2d:a2d /usr/share/a2dapp/templates/navbar_help.html
+chown a2d:a2d /usr/share/a2dapp/templates/navbar_login.html
+chown a2d:a2d /usr/share/a2dapp/templates/updatepin.html
+chown a2d:a2d /usr/share/a2dapp/templates/verifypassphrase.html
+chown a2d:a2d /usr/share/a2dapp/templates
+chown a2d:a2d /usr/share/a2dapp/app.py
+chown a2d:a2d /usr/share/a2dapp/gunicorn_config.py
+chown a2d:a2d /usr/share/a2dapp/
 
 #Set for system services under a2d
-sudo chown a2d:a2d /lib/systemd/system/a2d.service
-sudo chmod 644 /lib/systemd/system/a2d.service
-
-sudo chown -R a2d:a2d /usr/share/a2dapp
-
-# Start HTML app server
-sudo systemctl start a2d.service
-sudo systemctl enable a2d.service
-sudo systemctl daemon-reload
+chown a2d:a2d /lib/systemd/system/a2d.service
+chmod 644 /lib/systemd/system/a2d.service
 
 #Create link to enable a2dapp in nginx and reload
-sudo chown a2d:a2d /etc/nginx/sites-available/a2dapp
+chown a2d:a2d /etc/nginx/sites-available/a2dapp
 #Replace default nginx with a2d config
-sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/a2dapp /etc/nginx/sites-enabled/default
-sudo systemctl reload nginx
+rm /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/a2dapp /etc/nginx/sites-enabled/default
+deb-systemd-invoke reload nginx
 
 #Create ssl directory
 if [ ! -d "/etc/nginx/ssl/" ]; then
     mkdir -p /etc/nginx/ssl/
 fi
 
-#Sudo permission for a2d to reload nginx
-echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_nginx_reload.sh" | sudo tee /etc/sudoers.d/a2d_privileges1 > /dev/null
-echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_self_ssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges2 > /dev/null
-echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_ca_ssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges3 > /dev/null
-echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_read_ssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges4 > /dev/null
-echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_ca_list.sh" | sudo tee /etc/sudoers.d/a2d_privileges5 > /dev/null
-echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_rm_cassl.sh" | sudo tee /etc/sudoers.d/a2d_privileges6 > /dev/null
-echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_rm_selfssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges7 > /dev/null
-
 #sudo sh and py convert to +x
-sudo chmod +x /usr/share/scripts/a2d*.sh
+chmod +x /usr/share/scripts/a2d*.sh
+
+#Sudo permission for a2d to reload nginx
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_nginx_reload.sh" | sudo tee /etc/sudoers.d/a2d_privileges1
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_self_ssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges2
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_ca_ssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges3
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_read_ssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges4
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_ca_list.sh" | sudo tee /etc/sudoers.d/a2d_privileges5
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_rm_cassl.sh" | sudo tee /etc/sudoers.d/a2d_privileges6
+echo "a2d ALL=(ALL) NOPASSWD: /usr/share/scripts/a2d_rm_selfssl.sh" | sudo tee /etc/sudoers.d/a2d_privileges7
 
 #For cron- Check if the user "a2d" exists
-if id -u a2d >/dev/null 2>&1; then
+if id -u a2d; then
     # Check if the a2d_crontab.txt file exists
     if [ -e "/etc/a2d/a2d_crontab.txt" ]; then
         # Create or modify the crontab file for user "a2d" using the contents of a2d_crontab.txt
@@ -70,5 +134,16 @@ if id -u a2d >/dev/null 2>&1; then
         echo "# a2d crontab" | crontab -u a2d -
     fi
 fi
+
+#init.d registration
+case "$1" in
+  configure)
+    # Register the init script and redirect the output to /dev/null
+    update-rc.d a2d defaults > /dev/null
+    ;;
+  abort-upgrade|abort-remove|abort-deconfigure)
+    # Remove any configuration or files that were created during package installation
+    ;;
+esac
 
 exit 0

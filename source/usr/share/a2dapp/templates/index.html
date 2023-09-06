@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/cdn_bootstrap_5-3_min.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap_docs_5-3.css') }}">
+      <script src="{{ url_for('static', filename='bootstrap/js/cdn_bootstrap_5-3.js') }}"></script>
+      <title>a2d Dashboard</title>
+      <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo_clearbg.png') }}">
+  </head>
+
+  <style>
+    /* Define the transition effect for the start/stop buttons */
+    .btn {
+      transition: transform 0.3s;
+    }
+  
+    /* Define the pressing effect for the start/stop buttons */
+    .btn:active {
+      transform: scale(0.9);
+    }
+  </style>
+  
+  <body class="p-3 m-0 border-0 bd-example m-0 border-0">
+    <script src="{{ url_for('static', filename='js/status.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/log_updates.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap_5-3_mode.js') }}"></script>
+
+    <!-- Navbar -->
+    {% include 'navbar_dash.html' %}
+
+    <!-- Service status -->
+    <div class="container-fluid" style="margin-left: 0px;">
+      <div class="row justify-content-md-center"></div>
+          <h6 style="font-size: 18px">Dashboard</h6>
+          <div class="alert alert-info" role="alert" style="margin-right: 0px;">
+            <a style="font-size: 14px">
+              <span id="get-callsign"></span><br>
+              <span id="service-status">{{ service_status }}</span><br> 
+              <span id="run-interval">{{ run_interval }}</span><br>
+              <span id="last-run">{{ last_run_human }}</span><br>
+              <span id="ssids-display">{{ ssids_display }}</span>
+            </a>
+          </div>
+          <a id="start-service-btn" href="/start-service" class="btn btn-outline-primary btn-sm">Start Relay</a> &nbsp &nbsp
+          <a id="stop-service-btn" href="/stop-service" class="btn btn-outline-danger btn-sm">Stop Relay</a>&nbsp &nbsp
+      </div>
+    </div>
+
+    <!-- System Health -->
+    <div class="container-fluid" style="margin-left: 0px;">
+      <div class="row justify-content-md-center"></div><br>
+          <h6 style="font-size: 17px">System Health</h6>
+          <div class="alert alert-secondary" role="alert" style="margin-right: 0px;">
+            <a style="font-size: 14px">
+              <span id="cpu-temperature"></span><br> 
+              <span id="system-memory-usage"></span><br>
+              <span id="cpu-load"></span><br>
+          </div>
+      </div>
+    </div>
+
+    <!-- APRS Log display -->
+    <div class="container-fluid" style="margin-left: 0px;">
+      <div class="row justify-content-md-center"></div> <br>
+        <h6 style="font-size: 17px">APRS to DAPNET Transmits</h6>
+        <p style="font-size: 12px"><em>MessageID</em>> SourceCall (DestinationSSID): Message</p>
+          <div id="logs-container" class="logs alert alert-secondary" role="alert" style="font-size: 14px" style="margin-right: 0px;">
+              <p id="no-aprs-messages" class="no-messages">Loading...</p>
+          </div>
+      </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/heartbeat.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/export_import.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/input_cursor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/clean_pin.js') }}"></script>
+  </body>
+</html>
