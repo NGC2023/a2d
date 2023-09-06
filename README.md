@@ -19,11 +19,7 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
     You can utilize various packages like VNC or SSH to set up your Raspberry Pi even if you intend to run it headlessly (without a physical display). This approach provides flexibility while maintaining a small footprint, making it a versatile choice for HAM Radio enthusiasts.
 
     **Installation:**  
-    You have two installation options for a2d. You can either install it from the Apt repository or download it from the GitHub Packages. Choose the installation method that best suits your needs. To install it from the Apt repository run the following command in the terminal:
-
-    `sudo apt-install a2d`
-
-    Alternatively, you can install a2d from GitHub Packages. Download the Debian package from https://github.com/NGC2023/a2d. Navigate to the directory where you downloaded the Debian package using the command line and run the following command:  
+    You can install a2d from GitHub Packages. Download the Debian package from [https://github.com/NGC2023/a2d](https://github.com/NGC2023/a2d/releases). Navigate to the directory where you downloaded the Debian package using the command line and run the following command:  
 
     `sudo apt-get install -y ./a2d_package_version.deb`
 
