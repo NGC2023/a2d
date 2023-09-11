@@ -1,3 +1,0 @@
-version=4
-opts="filenamemangle=s/.+\/v?(\d\S+)\.tar\.gz/ pgpsigurlmangle=s/.+\/v?(\d\S+)\.tar\.gz.sig/"
-https://github.com/NGC2023/a2d/releases .*/v?(\d\S+)\.tar\.gz

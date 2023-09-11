@@ -1,0 +1,37 @@
+# a2d HTML app systemd service documentation
+
+## Description
+
+This systemd service file is for managing the a2d HTML app. 
+It ensures that the app starts, stops, and restarts as necessary.
+The service unit is dependent on network connectivity and
+runs under the 'a2d' user and group.
+
+## Unit Section
+
+### Description
+
+- **Description**: a2d HTML app
+- **Wants**: network-online.target
+- **After**: network-online.target
+
+## Service Section
+
+### Description
+
+- **Type**: simple
+- **User**: a2d
+- **Group**: a2d
+- **WorkingDirectory**: /usr/share/a2dapp
+- **ExecStart**: /usr/local/bin/gunicorn_wrapper app:app -c
+  /usr/lib/python3/dist-packages/a2dapp/gunicorn_config.py
+- **Restart**: always
+- **Description**: APRS to DAPNET portal
+- **ExecReload**: /bin/kill -HUP $MAINPID
+- **ProtectHome**: true
+
+## Install Section
+
+### Description
+
+- **WantedBy**: multi-user.target

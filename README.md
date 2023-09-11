@@ -16,6 +16,11 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
 
 4. **Debian System with Internet Connection**: For optimal performance and convenience in HAM Radio applications, especially if you prefer a compact, standalone setup with internet access, we recommend using a Raspberry Pi. The Raspberry Pi offers a cost-effective solution that's well-suited for these purposes.
 
+**Compatibility**
+- **Debian 12**: a2d has been thoroughly tested on Debian 12.
+- **Debian 12 (VMware)**: Tested on Debian 12 within a VMware environment.
+- **Raspberry Pi OS with Debian 11 (bullseye)**: Tested on Raspberry Pi OS with Debian version 11 (bullseye).
+
     You can utilize various packages like VNC or SSH to set up your Raspberry Pi even if you intend to run it headlessly (without a physical display). This approach provides flexibility while maintaining a small footprint, making it a versatile choice for HAM Radio enthusiasts.
 
     **Installation:**  
