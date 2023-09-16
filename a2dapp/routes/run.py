@@ -3,7 +3,7 @@ import subprocess
 import configparser
 from crontab import CronTab
 from flask import Blueprint, redirect, jsonify
-from routes.auth import login_required
+from a2dapp.routes.auth import login_required
 
 run_routes = Blueprint('run', __name__)
 

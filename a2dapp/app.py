@@ -1,14 +1,14 @@
 import os
 from flask import Flask, render_template, request, session, redirect
-from routes.auth import auth_routes
-from routes.run import run_routes
-from routes.dns import dns_routes
-from routes.system import system_routes
-from routes.network import network_routes
-from routes.config import config_routes
-from routes.reset import reset_routes
-from routes.data import data_routes, get_adv_conf_values
-from modals.creds import get_credentials
+from a2dapp.routes.auth import auth_routes
+from a2dapp.routes.run import run_routes
+from a2dapp.routes.dns import dns_routes
+from a2dapp.routes.system import system_routes
+from a2dapp.routes.network import network_routes
+from a2dapp.routes.config import config_routes
+from a2dapp.routes.reset import reset_routes
+from a2dapp.routes.data import data_routes, get_adv_conf_values
+from a2dapp.modals.creds import get_credentials
 
 app = Flask(__name__)
 

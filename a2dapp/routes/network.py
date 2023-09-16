@@ -1,7 +1,7 @@
 import subprocess
 import re
 from flask import Blueprint, jsonify
-from routes.auth import login_required
+from a2dapp.routes.auth import login_required
 
 network_routes = Blueprint('network', __name__)
 

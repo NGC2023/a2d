@@ -2,9 +2,9 @@ import os
 import pickle
 import hashlib
 from flask import Blueprint, request, send_file, redirect, render_template
-from routes.auth import login_required
-from modals.user import decrypt_user_passphrase
-from modals.creds import get_credentials
+from a2dapp.routes.auth import login_required
+from a2dapp.modals.user import decrypt_user_passphrase
+from a2dapp.modals.creds import get_credentials
 
 config_routes = Blueprint('config', __name__)
 

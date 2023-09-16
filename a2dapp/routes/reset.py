@@ -1,13 +1,13 @@
 import os
 import sqlite3
 import shutil
-import subprocess
 from flask import Blueprint, request
 import configparser
-from routes.auth import login_required
-from modals.user import decrypt_user_passphrase
-from routes.run import remove_cronjob
-from routes.dns import list_cassl_certs, reload_nginx, update_nginx_config
+from a2dapp.routes.auth import login_required
+from a2dapp.modals.user import decrypt_user_passphrase
+from a2dapp.routes.run import remove_cronjob
+from a2dapp.routes.dns import reload_nginx, update_nginx_config
+from a2dapp.routes.certs import a2d_rm_selfssl, a2d_ca_list, a2d_rm_cassl
 
 reset_routes = Blueprint('reset', __name__)
 
@@ -62,19 +62,13 @@ def reset_account():
             config3.write(config_file3, space_around_delimiters=False)
         
         if selfSSL_delete:
-            try:
-                subprocess.run(["sudo", "/usr/share/scripts/a2d_rm_selfssl.sh"], check=True)
-            except subprocess.CalledProcessError:
-                pass
+            a2d_rm_selfssl()
             a2d_default_dns()
 
         if caSSL_delete:
-            cassl_certs_list = list_cassl_certs()
+            cassl_certs_list = a2d_ca_list()
             for rm_cassl_certs in cassl_certs_list:
-                try:
-                    subprocess.run(["sudo", "/usr/share/scripts/a2d_rm_cassl.sh", rm_cassl_certs], check=True)
-                except subprocess.CalledProcessError:
-                    pass
+                a2d_rm_cassl(rm_cassl_certs)
             a2d_default_dns()
 
         try:

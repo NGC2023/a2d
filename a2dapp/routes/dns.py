@@ -3,8 +3,9 @@ import subprocess
 import re
 from datetime import datetime
 from flask import Blueprint, request, render_template, jsonify
-from modals.creds import get_credentials
-from routes.auth import login_required
+from a2dapp.modals.creds import get_credentials
+from a2dapp.routes.auth import login_required
+from a2dapp.routes.certs import read_ssl, a2d_self_ssl, a2d_rm_cassl, a2d_ca_ssl, a2d_ca_list
 
 dns_routes = Blueprint('dns', __name__)
 
@@ -28,12 +29,12 @@ def local_dns_setting():
     a2d_default_dns = (current_listen_port == '9331' and current_server_name == '_' and not current_ssl_status)
 
     #Self SSL details
-    try:
-        output = subprocess.run(["sudo", "/usr/share/scripts/a2d_read_ssl.sh", SSL_CERT_PATH], stdout=subprocess.PIPE, text=True)
-        output_string = output.stdout.strip()
-        stored_selfcommon_name, stored_selforganization_name, _ = map(str.strip, output_string.split(','))
-    except FileNotFoundError:
-        stored_selfcommon_name, stored_selforganization_name, _ = '', ''
+    output = read_ssl(SSL_CERT_PATH)
+    stored_selfcommon_name, stored_selforganization_name, _ = output.split(',')
+    if stored_selfcommon_name == '':
+        stored_selfcommon_name = 'None'
+    if stored_selforganization_name == '':
+        stored_selforganization_name = 'None'
 
     #Get cassl list
     cassl_certs_list = list_cassl_certs()
@@ -166,7 +167,7 @@ def update_nginx_config(listen_port, server_name, set_selfssl_status, set_cassl_
 #Reload nginx
 def reload_nginx():
     try:
-        subprocess.run(["sudo", "/usr/share/scripts/a2d_nginx_reload.sh"])
+        subprocess.run(["systemctl", "reload", "nginx"], check=True)
     except subprocess.CalledProcessError as e:
         return "Error reloading nginx:", e
 
@@ -177,11 +178,11 @@ def gen_self_signed_ssl():
     common_name = request.form["common_name"]
     validity_days = int(request.form["validity_days"])
     organization_name = request.form["organization_name"]
-    try:
-        subprocess.run(["sudo", "/usr/share/scripts/a2d_self_ssl.sh", common_name, str(validity_days), organization_name], check=True)
+    self_ssl_result = a2d_self_ssl(common_name, validity_days, organization_name)
+    if self_ssl_result == "sSSL generated":
         reload_nginx()
         return "sSSL generated"
-    except subprocess.CalledProcessError:
+    else:
         return "Error generating SSL"
 
 #Generate CN signed SSL
@@ -194,11 +195,11 @@ def gen_ca_ssl():
     
     if ca_common_name not in cassl_certs_list:
         if is_valid_email(email_id):
-            try:
-                subprocess.run(["sudo", "/usr/share/scripts/a2d_ca_ssl.sh", ca_common_name, email_id], check=True)
+            ca_ssl = a2d_ca_ssl(ca_common_name, email_id)
+            if ca_ssl == "caSSL generated":
                 reload_nginx()
                 return "caSSL generated"
-            except subprocess.CalledProcessError:
+            else:
                 return "Error generating SSL"
         else:
             return "invalid email"
@@ -223,11 +224,11 @@ def rm_ca_ssl():
 
     if rm_cassl_certs in cassl_certs_list:
         if rm_cassl_certs != current_server_name:
-            try:
-                subprocess.run(["sudo", "/usr/share/scripts/a2d_rm_cassl.sh", rm_cassl_certs], check=True)
+            rm_cassl = a2d_rm_cassl(rm_cassl_certs)
+            if rm_cassl == "caSSL removed":
                 reload_nginx()
                 return "caSSL removed"
-            except subprocess.CalledProcessError:
+            else:
                 return "Error removing SSL"
         else:
             return "caSSL in use"
@@ -236,8 +237,8 @@ def rm_ca_ssl():
 
 #Get the list of CA SSL
 def list_cassl_certs():
-    result = subprocess.run(["sudo", "/usr/share/scripts/a2d_ca_list.sh"], stdout=subprocess.PIPE, text=True, input="\n")
-    return result.stdout.strip().split("\n")
+    result = a2d_ca_list()
+    return result
 
 #HTML data display
 @dns_routes.route('/for-html', methods=['GET'])
@@ -264,26 +265,22 @@ def for_html():
 
     #Read SSL certificate status
     if current_SSL_crt:
-        try:
-            output = subprocess.run(["sudo", "/usr/share/scripts/a2d_read_ssl.sh", current_SSL_crt], stdout=subprocess.PIPE, text=True)
-            output_string = output.stdout.strip()
-            common_name, organization_name, expiry_date = output_string.split(',')
-            # Handle empty values by replacing them with None
-            if common_name == '':
-                common_name = 'None'
-            if organization_name == '':
-                organization_name = 'None'
-            if expiry_date == '':
-                expiry_date = 'None'
-            
-            current_date = datetime.now()
-            current_date =current_date.strftime('%Y-%m-%d %H:%M:%S')
+        output = read_ssl(current_SSL_crt)
+        common_name, organization_name, expiry_date = output.split(',')
 
-            if expiry_date and expiry_date < current_date:
-                expiry_date = 'Expired'
+        # Handle empty values by replacing them with None
+        if common_name == '':
+            common_name = 'None'
+        if organization_name == '':
+            organization_name = 'None'
+        if expiry_date == '':
+            expiry_date = 'None'
 
-        except FileNotFoundError:
-            common_name, organization_name, expiry_date = 'None', 'None', 'None'
+        current_date = datetime.now()
+        current_date =current_date.strftime('%Y-%m-%d %H:%M:%S')
+
+        if expiry_date and expiry_date < current_date:
+            expiry_date = 'Expired'
     else:
         common_name, organization_name, expiry_date = 'None', 'None', 'None'
 
