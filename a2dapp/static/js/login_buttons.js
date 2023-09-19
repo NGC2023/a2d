@@ -23,6 +23,36 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById("pinForm").action = "/login";
                 document.getElementById("pinForm").submit();
             });
+            digit1Input.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    loginButton.click();
+                }
+            });
+            digit2Input.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    loginButton.click();
+                }
+            });
+            digit3Input.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    loginButton.click();
+                }
+            });
+            digit4Input.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    loginButton.click();
+                }
+            });
+            digit5Input.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    loginButton.click();
+                }
+            });
+            digit6Input.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    loginButton.click();
+                }
+            });
         } else {
             loginButton.disabled = true;
             registerButton.innerHTML = "Register";
