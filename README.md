@@ -201,6 +201,8 @@ a2d offers server settings and advanced options for users who want to customize 
 
 The server configuration allows you to modify a2d's default server settings. a2d's default settings include Listen Port: 9331, Server Name: _, and SSL disabled.
 
+These settings have the potential to override your existing NGINX configuration, particularly if NGINX is configured for another application. If you are using NGINX for another application, it is strongly recommended to manually configure NGINX for a2d.
+
 **Desired Listen Port:** You can choose the port number for a2d access. For standard HTTP, it's port 80, and for HTTPS, it's 443. Alternatively, you can select any other open port on your system. After changing the port, you'll need to access a2d using the specified port.
 
 **Desired Server Name:** You can set the server name to match your desired domain name. Ensure that the server name corresponds to your domain name, especially if you've enabled SSL, as it should match the Common Name (CN) in the SSL certificate.
