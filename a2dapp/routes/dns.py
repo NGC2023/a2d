@@ -6,11 +6,12 @@ from flask import Blueprint, request, render_template, jsonify
 from a2dapp.modals.creds import get_credentials
 from a2dapp.routes.auth import login_required
 from a2dapp.routes.certs import read_ssl, a2d_self_ssl, a2d_rm_cassl, a2d_ca_ssl, a2d_ca_list
+from a2dapp.routes.nginx import reload_nginx, read_nginx_config, disable_default_ng, enable_default_ng
 
 dns_routes = Blueprint('dns', __name__)
 
 # Define the directory paths
-NGINX_CONFIG_PATH = '/etc/nginx/sites-available/a2dapp'
+NGINX_CONFIG_PATH = '/etc/nginx/conf.d/00-a2dapp.conf'
 SSL_CERT_PATH = '/etc/nginx/ssl/a2d-ssl.crt'
 SSL_KEY_PATH = '/etc/nginx/ssl/a2d-ssl.key'
 
@@ -106,6 +107,12 @@ def server_config():
 
     # Update the Nginx configuration
     update_nginx_config(listen_port, server_name, set_selfssl_status, set_cassl_status)
+    
+    if listen_port == '80':
+        disable_default_ng()
+    elif listen_port != '80':
+        enable_default_ng()
+
     reload_nginx()
 
     if set_selfssl_status == 'enable':
@@ -164,13 +171,6 @@ def update_nginx_config(listen_port, server_name, set_selfssl_status, set_cassl_
     except Exception as e:
         return f"Error updating nginx conf: {e}"
 
-#Reload nginx
-def reload_nginx():
-    try:
-        subprocess.run(["systemctl", "reload", "nginx"], check=True)
-    except subprocess.CalledProcessError as e:
-        return "Error reloading nginx:", e
-
 #Generate self-signed SSL
 @dns_routes.route('/gen-self-signed-ssl', methods=['POST'])
 @login_required
@@ -192,12 +192,11 @@ def gen_ca_ssl():
     ca_common_name = request.form["ca_common_name"]
     email_id = request.form["email_id"]
     cassl_certs_list = list_cassl_certs()
-    
+
     if ca_common_name not in cassl_certs_list:
         if is_valid_email(email_id):
             ca_ssl = a2d_ca_ssl(ca_common_name, email_id)
             if ca_ssl == "caSSL generated":
-                reload_nginx()
                 return "caSSL generated"
             else:
                 return "Error generating SSL"
@@ -300,16 +299,6 @@ def for_html():
     }
     
     return jsonify(response_data)
-
-#Read nginx config
-def read_nginx_config(key):
-    try:
-        with open(NGINX_CONFIG_PATH, 'r') as config_file:
-            for line in config_file:
-                if line.strip().startswith(f"{key} "):
-                    return line.split()[-1].rstrip(';')
-    except Exception as e:
-        return f"Error reading nginx conf: {e}"
 
 #Get systemctl status
 def get_ctl_status(ctl_name):

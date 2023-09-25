@@ -208,7 +208,12 @@ class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0" style="hei
     <h4>Server Configuration:</h4>
     <p>
     The server configuration allows you to modify a2d's default server settings. a2d's default settings include Listen Port: 9331, 
-    Server Name: _, and SSL disabled.<br><br>
+    Server Name: _, and SSL disabled.<br>
+    <div class="alert alert-danger" role="alert">
+      These settings have the potential to override your existing NGINX configuration, particularly if NGINX is configured 
+      for another application. If you are using NGINX for another application, it is strongly recommended to manually configure 
+      NGINX for a2d.
+    </div>
     
     <b>Desired Listen Port:</b> You can choose the port number for a2d access. For standard HTTP, it's port 80, and for HTTPS, 
     it's 443. Alternatively, you can select any other open port on your system. After changing the port, you'll need to access 
@@ -229,7 +234,7 @@ class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0" style="hei
     button inside Server Configuration. You can generate as many CA Signed SSL certificates as needed. Ensure that the Common Name (CN) 
     matches your domain name. Once you've created your desired SSL certificate, you can return to Server Configuration to set it for a2d. 
     After certificate creation, a2d uses certbot for auto-renewal. If you no longer need CA SSL certificates, a2d provides an option to 
-    delete them by clicking "Delete CA SSL" in the CA Signed SSL and selecting the certificate to remove.<br>
+    delete them by clicking "Delete CA SSL" in the CA Signed SSL and selecting the certificate to remove.<br><br>
     <div class="alert alert-warning" role="alert">
     Please note that Let's Encrypt has a limit on duplicate certificates. For more details, refer to 
     <a href='https://letsencrypt.org/docs/duplicate-certificate-limit/' target="_blank">Let's Encrypt's page</a>

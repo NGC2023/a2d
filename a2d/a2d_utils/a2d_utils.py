@@ -1,6 +1,5 @@
 import sqlite3
 import configparser
-from crontab import CronTab
 
 #db utils
 def establish_connection(db_file):
@@ -28,18 +27,19 @@ def message_id_exists(cursor, table_name, message_id):
 
 #Cron util
 def remove_cronjob():
-    # Get the current user's cron table
-    cron = CronTab(user=True)
-
-    # Find the cron job that matches the specified command
     command = '/usr/bin/python3 -m a2d.runscripts'
-    for job in cron:
-        if job.command == command:
-            # Remove the cron job
-            cron.remove(job)
+    lines = []
+    
+    try:
+        with open('/etc/cron.d/a2d', 'r') as cron_file:
+            lines = cron_file.readlines()
+    except FileNotFoundError:
+        pass
+    
+    filtered_lines = [line for line in lines if not line.strip().endswith(command)]
 
-    # Write the changes to the cron table
-    cron.write()
+    with open('/etc/cron.d/a2d', 'w') as cron_file:
+        cron_file.writelines(filtered_lines)
 
 #Ini read/write utils
 def read_ini_data(ini_file):

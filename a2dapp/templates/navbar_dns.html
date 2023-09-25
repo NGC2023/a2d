@@ -53,7 +53,7 @@
 
           <form id="serverForm" action="/server-config" method="post">
             <div class="modal-body">
-
+              <h6 style="color: #d4660c;">These settings may override your NGINX config</h6>
               <label for="listen_port" class="form-label">Listen Port:</label>
               <input type="number" class="form-control" id="listen_port" name="listen_port" min="1" max="65536" value="{{ listen_port }}" style="width: 160px;" required><br>
               <label for="server_name" class="form-label">Server Name:</label>

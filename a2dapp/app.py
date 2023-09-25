@@ -13,12 +13,21 @@ from a2dapp.modals.creds import get_credentials
 app = Flask(__name__)
 
 #Storing session key implemented to avoid nginx error
-SESSION_KEY_FILE = "session_key.bin"
+SESSION_KEY_FILE = "/etc/a2d/.keys/session_key.bin"
+SESSION_KEY_DIR = os.path.dirname(SESSION_KEY_FILE)
 
 def generate_and_store_session_key():
-    session_key = os.urandom(32)
-    with open(SESSION_KEY_FILE, "wb") as key_file:
-        key_file.write(session_key)
+    if not os.path.exists(SESSION_KEY_DIR):
+        try:
+            os.makedirs(SESSION_KEY_DIR)
+        except OSError as e:
+            pass
+    if os.path.exists(SESSION_KEY_DIR):
+        session_key = os.urandom(32)
+        with open(SESSION_KEY_FILE, "wb") as key_file:
+            key_file.write(session_key)
+    else:
+        pass
 
 def load_session_key():
     try:

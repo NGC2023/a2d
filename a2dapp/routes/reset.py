@@ -6,8 +6,8 @@ import configparser
 from a2dapp.routes.auth import login_required
 from a2dapp.modals.user import decrypt_user_passphrase
 from a2dapp.routes.run import remove_cronjob
-from a2dapp.routes.dns import reload_nginx, update_nginx_config
-from a2dapp.routes.certs import a2d_rm_selfssl, a2d_ca_list, a2d_rm_cassl
+from a2dapp.routes.dns import update_nginx_config
+from a2dapp.routes.certs import a2d_rm_selfssl, a2d_ca_list, a2d_rm_cassl, reload_nginx, enable_default_ng
 
 reset_routes = Blueprint('reset', __name__)
 
@@ -92,6 +92,7 @@ def a2d_default_dns():
     server_name = '_'
     set_cassl_status = ''
     update_nginx_config(listen_port, server_name, set_selfssl_status, set_cassl_status)
+    enable_default_ng()
     reload_nginx()
 
 def rm_dbs():

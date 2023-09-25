@@ -1,7 +1,6 @@
 import os
 import subprocess
 import configparser
-from crontab import CronTab
 from flask import Blueprint, redirect, jsonify
 from a2dapp.routes.auth import login_required
 
@@ -10,27 +9,21 @@ run_routes = Blueprint('run', __name__)
 def generate_cron_job(interval_minutes, interval_hours, interval_hours_uni):
     cron_jobs = []
     if interval_minutes == 0 and interval_hours == 0:
-        cron_jobs.append(f"*/15 * * * * /usr/bin/python3 -m a2d.runscripts")
+        cron_jobs.append(f"*/15 * * * * root /usr/bin/python3 -m a2d.runscripts")
     elif interval_minutes == 1 and interval_hours == 0:
-        cron_jobs.append(f"*/2 * * * * /usr/bin/python3 -m a2d.runscripts")
+        cron_jobs.append(f"*/2 * * * * root /usr/bin/python3 -m a2d.runscripts")
     elif interval_minutes != 0 and interval_hours == 0:
-        cron_jobs.append(f"*/{interval_minutes} * * * * /usr/bin/python3 -m a2d.runscripts")
+        cron_jobs.append(f"*/{interval_minutes} * * * * root /usr/bin/python3 -m a2d.runscripts")
     elif interval_minutes == 0 and interval_hours != 0:
-        cron_jobs.append(f"0 */{interval_hours} * * * /usr/bin/python3 -m a2d.runscripts")    
+        cron_jobs.append(f"0 */{interval_hours} * * * root /usr/bin/python3 -m a2d.runscripts")    
     elif interval_minutes != 0 and interval_minutes != 1 and interval_hours != 0 and interval_hours != 1:
-        cron_jobs.append(f"*/{interval_minutes} */{interval_hours} * * * /usr/bin/python3 -m a2d.runscripts")
+        cron_jobs.append(f"*/{interval_minutes} */{interval_hours} * * * root /usr/bin/python3 -m a2d.runscripts")
     else:
-        cron_jobs.append(f"0 */{interval_hours_uni} * * * /usr/bin/python3 -m a2d.runscripts")
-        cron_jobs.append(f"0-59/{interval_minutes} * * * * /usr/bin/python3 -m a2d.runscripts")
+        cron_jobs.append(f"0 */{interval_hours_uni} * * * root /usr/bin/python3 -m a2d.runscripts")
+        cron_jobs.append(f"0-59/{interval_minutes} * * * * root /usr/bin/python3 -m a2d.runscripts")
     return cron_jobs
 
 def add_cronjob():
-    # Get the current user's cron table
-    cron = CronTab(user=True)
-
-    # Define the command to be executed by the cron job
-    command = '/usr/bin/python3 -m a2d.runscripts'
-
     # Read values from the configuration file
     config_file = '/etc/a2d/a2d_adv_conf.ini'
     config = configparser.ConfigParser()
@@ -44,42 +37,45 @@ def add_cronjob():
     # Generate the cron job schedule using the updated function
     cron_schedule_list = generate_cron_job(interval_minutes, interval_hours, interval_hours_uni)
 
-    # Add each cron job individually
-    for cron_schedule in cron_schedule_list:
-        job = cron.new(command=command)
-        cron_parts = cron_schedule.split()
-        job.setall(' '.join(cron_parts[:5]))
-
-    # Write the changes to the cron table
-    cron.write()
+    # Create and write the cron job to /etc/cron.d/a2d.cron
+    with open('/etc/cron.d/a2d', 'a') as cron_file:
+        for cron_schedule in cron_schedule_list:
+            cron_file.write(f'{cron_schedule}\n')
 
 def check_cronjob():
-    # Get the current user's cron table
-    cron = CronTab(user=True)
-
     # Find the cron job that matches the specified command
     command = '/usr/bin/python3 -m a2d.runscripts'
     runstatus = "Stopped"  # Set a default value before the loop
-    for job in cron:
-        if job.command == command:
-            runstatus = "Running"  # Update runstatus only when a matching cron job is found
-            break  # No need to continue the loop once a match is found
+    try:
+        with open('/etc/cron.d/a2d', 'r') as cron_file:
+            for line in cron_file:
+                if line.strip().endswith(command):
+                    runstatus = "Running"
+                    break  # No need to continue reading the file once a match is found
+    except FileNotFoundError:
+        pass  # Handle the case when the file doesn't exist
 
     return runstatus
 
 def remove_cronjob():
-    # Get the current user's cron table
-    cron = CronTab(user=True)
-
     # Find the cron job that matches the specified command
     command = '/usr/bin/python3 -m a2d.runscripts'
-    for job in cron:
-        if job.command == command:
-            # Remove the cron job
-            cron.remove(job)
 
-    # Write the changes to the cron table
-    cron.write()
+    # Initialize the lines variable to an empty list to avoid error if file not found
+    lines = []
+    
+    try:
+        with open('/etc/cron.d/a2d', 'r') as cron_file:
+            lines = cron_file.readlines()
+    except FileNotFoundError:
+        return  # Handle the case when the file doesn't exist
+    
+    # Filter out lines that do not contain the specified command
+    filtered_lines = [line for line in lines if not line.strip().endswith(command)]
+
+    # Write the filtered lines back to the /etc/cron.d/a2d.cron file
+    with open('/etc/cron.d/a2d', 'w') as cron_file:
+        cron_file.writelines(filtered_lines)
 
 @run_routes.route('/start-service')
 @login_required

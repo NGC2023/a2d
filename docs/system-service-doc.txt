@@ -23,10 +23,10 @@ runs under the 'a2d' user and group.
 - **User**: a2d
 - **Group**: a2d
 - **WorkingDirectory**: /usr/share/a2dapp
-- **ExecStart**: /usr/local/bin/gunicorn_wrapper app:app -c
-  /usr/lib/python3/dist-packages/a2dapp/gunicorn_config.py
+- **ExecStart**: /usr/bin/python3 -m gunicorn app:app -c 
+/usr/lib/python3/dist-packages/a2dapp/gunicorn_config.py
 - **Restart**: always
-- **Description**: APRS to DAPNET portal
+- **Description**: a2d HTML App
 - **ExecReload**: /bin/kill -HUP $MAINPID
 - **ProtectHome**: true
 

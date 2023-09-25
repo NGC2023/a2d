@@ -2,9 +2,10 @@ import os
 import subprocess
 import datetime
 import re
+from a2dapp.routes.nginx import reload_nginx, read_nginx_config, disable_default_ng, enable_default_ng
 
 def read_ssl(cert_file):
-    if not cert_file:
+    if not cert_file or not os.path.exists(cert_file):
         return "None,None,None"
 
     try:
@@ -30,7 +31,7 @@ def read_ssl(cert_file):
 
         return f"{common_name},{organization_name},{expiry_date}"
 
-    except subprocess.CalledProcessError:
+    except Exception as e:
         return "None,None,None"
 
 def a2d_self_ssl(common_name, validity_days, organization_name):
@@ -71,11 +72,20 @@ def a2d_rm_cassl(common_name):
         return "Error removing SSL"
 
 def a2d_ca_ssl(common_name, email):
+    disable_default_ng()
+    reload_nginx()
+    listen_port = read_nginx_config('listen')
     try:
         # Execute the certbot command to generate the certificate
         subprocess.run(["certbot", "certonly", "-d", common_name, "--standalone", "--preferred-challenges", "http", "--email", email, "--agree-tos", "--non-interactive"], check=True)
+        if listen_port != '80':
+            enable_default_ng()
+        reload_nginx()
         return "caSSL generated"
     except subprocess.CalledProcessError as e:
+        if listen_port != '80':
+            enable_default_ng()
+        reload_nginx()
         return "Error generating SSL"
 
 def a2d_ca_list():
