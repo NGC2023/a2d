@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the path to the nginx configuration file
-NGINX_CONF="/etc/nginx/sites-available/a2dapp"
+NGINX_CONF="/etc/nginx/conf.d/00-a2dapp.conf"
 
 # Extract the value of the 'listen' directive from the nginx configuration
 LISTEN_VALUE=$(grep -oP 'listen\s+\K[^;]+' "$NGINX_CONF")
