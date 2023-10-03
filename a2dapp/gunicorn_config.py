@@ -7,6 +7,6 @@ threads = 2 #Per worker optimum for 4 core and 1GB memory
 max_requests = 1000 #Restart worker after 1000 requests
 timeout = 30
 max_requests_jitter = 100 #Restart connection after 100 req
-errorlog = '/var/log/a2d/a2d_gu_error.log'
+errorlog = '/var/log/a2d_gu_error.log'
 loglevel = 'error'
 logrotate = 1000000 #rotate after 1MB
