@@ -26,19 +26,19 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
     **Installation:**  
     You can install a2d from GitHub Packages. Download the Debian package from [a2d GitHub Releases](https://github.com/NGC2023/a2d/releases). Navigate to the directory where you downloaded the Debian package using the command line and run the following command:  
 
-    `sudo apt-get install -y ./a2d_package_version.deb`
+    `sudo apt install -y ./a2d_package_version.deb`
 
     Replace a2d_package_version.deb with the a2d file name you downloaded before running this command.
 
     To **uninstall a2d**, follow these steps.
 
-    `sudo apt-get remove --purge a2d`
+    `sudo apt remove --purge a2d`
     
     However, please note that this command won't remove the core Nginx server and other dependencies that were installed alongside a2d. To completely remove all a2d dependencies, you can use the following commands:
     
     Remove Nginx and its associated files:
 
-    `sudo apt-get -y remove --purge nginx nginx-common nginx-full nginx-core`
+    `sudo apt -y remove --purge nginx nginx-common nginx-full nginx-core`
     
     Remove Nginx configuration files:
 
@@ -81,8 +81,8 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
     If you prefer to install dependencies manually, you can use the following commands to install from the apt repository:
 
     `sudo apt update`  
-    `sudo apt-get install <package>`  
-    `sudo apt-get upgrade`
+    `sudo apt install <package>`  
+    `sudo apt upgrade`
     
     If you encounter any issues during installation, you can try running:
 
