@@ -44,8 +44,14 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <div class="container-fluid" style="margin-left: 0px; display: flex; justify-content: center; align-items: center;">
+        {% include 'footer.html' %}
+    </div>
     
     <script src="{{ url_for('static', filename='js/input_cursor.js') }}"></script>
     <script src="{{ url_for('static', filename='js/clean_pin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/version.js') }}"></script>
 </body>
 </html>

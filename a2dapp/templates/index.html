@@ -65,16 +65,22 @@
     <div class="container-fluid" style="margin-left: 0px;">
       <div class="row justify-content-md-center"></div> <br>
         <h6 style="font-size: 17px">APRS to DAPNET Transmits</h6>
-        <p style="font-size: 12px"><em>MessageID</em>> SourceCall (DestinationSSID): Message</p>
+        <p style="font-size: 12px">#. <em>MessageID</em>> SourceCall (DestinationSSID): Message</p>
           <div id="logs-container" class="logs alert alert-secondary" role="alert" style="font-size: 14px" style="margin-right: 0px;">
               <p id="no-aprs-messages" class="no-messages">Loading...</p>
           </div>
       </div>
     </div>
-    
+
+    <!-- Footer -->
+    <div class="container-fluid" style="margin-left: 0px;">
+      {% include 'footer.html' %}
+    </div>
+
     <script src="{{ url_for('static', filename='js/heartbeat.js') }}"></script>
     <script src="{{ url_for('static', filename='js/export_import.js') }}"></script>
     <script src="{{ url_for('static', filename='js/input_cursor.js') }}"></script>
     <script src="{{ url_for('static', filename='js/clean_pin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/version.js') }}"></script>
   </body>
 </html>

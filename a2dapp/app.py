@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, jsonify
 from a2dapp.routes.auth import auth_routes
 from a2dapp.routes.run import run_routes
 from a2dapp.routes.dns import dns_routes
@@ -11,6 +11,7 @@ from a2dapp.routes.data import data_routes, get_adv_conf_values
 from a2dapp.modals.creds import get_credentials
 
 app = Flask(__name__)
+app.config['APP_VERSION'] = '2.0.1'
 
 #Storing session key implemented to avoid nginx error
 SESSION_KEY_FILE = "/etc/a2d/.keys/session_key.bin"
@@ -84,6 +85,10 @@ def home():
         )
     else:
         return redirect('/login')
+
+@app.route('/version', methods=['GET'])
+def get_version():
+    return jsonify({'version': app.config['APP_VERSION']})
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=9333)

@@ -15,11 +15,18 @@
     <script src="{{ url_for('static', filename='js/clean_pin.js') }}"></script>
     <script src="{{ url_for('static', filename='js/heartbeat.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap_5-3_mode.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/version.js') }}"></script>
 
     <!-- Navbar -->
     {% include 'navbar_help.html' %}
 
     <!-- Help container -->
     {% include 'help.html' %}
+
+    <!-- Footer -->
+    <div class="container-fluid" style="margin-left: 0px;">
+      {% include 'footer.html' %}
+    </div>
+
   </body>
 </html>

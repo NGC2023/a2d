@@ -14,6 +14,7 @@
     <script src="{{ url_for('static', filename='js/clean_pin.js') }}"></script>
     <script src="{{ url_for('static', filename='js/updatepin_button.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap_5-3_mode.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/version.js') }}"></script>
 
     <!-- Navbar -->
     {% include 'navbar_login.html' %}
@@ -46,6 +47,12 @@
             </form>
             </div>
         </div>
+    </div><br>
+
+    <!-- Footer -->
+    <div class="container-fluid" style="margin-left: 0px; display: flex; justify-content: center; align-items: center;">
+        {% include 'footer.html' %}
     </div>
+
 </body>
 </html>

@@ -2,6 +2,20 @@
 
 All notable changes to a2d will be documented in this file.
 
+## [Version 2.0.1] - 2023-10-09
+
+### Added
+- **[Feature]**: Message counts added to APRS to DAPNET
+Transmit logs.
+
+### Changed
+- **[Change]**: Optimized multicore processing for
+dual-core processors, like the Raspberry Pi Zero 2 W.
+
+### Security
+- **[Security fix]**: Implemented yaml safe_load instead
+of pickle for a2d configuration backup.
+
 ## [Version 2.0.0] - 2023-09-01
 
 ### Added
@@ -85,15 +99,6 @@ gathering user information and configuring a2d.
 - **[Change]**: Enhanced security by implementing
 encryption for user information.
 
-### Deprecated
-- **[Deprecation]**: None
-
-### Removed
-- **[Removal]**: None
-
 ### Fixed
 - **[Bug fix]**: Resolved the issue where callsign 0 was
 incorrectly representing the SSID.
-
-### Security
-- **[Security fix]**: None

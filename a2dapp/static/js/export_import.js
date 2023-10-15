@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const blob = await response.blob();
                 const link = document.createElement("a");
                 link.href = window.URL.createObjectURL(blob);
-                link.download = "a2d_config_backup.bin";
+                link.download = "a2d_config_backup.yaml";
                 link.click();
                 //Set timeout to redirect, works if autodownload enabled in browsers
                 setTimeout(() => {

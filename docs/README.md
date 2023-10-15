@@ -52,7 +52,7 @@ Raspberry Pi OS with Debian version 11 (bullseye).
     the Apt repository run the following command in the 
     terminal:
 
-    `sudo apt-install a2d`
+    `sudo apt install a2d`
 
     Alternatively, you can install a2d from GitHub Packages.
     Download the Debian package from
@@ -61,14 +61,14 @@ Raspberry Pi OS with Debian version 11 (bullseye).
     package using the command line and run the following
     command:  
 
-    `sudo apt-get install -y ./a2d_package_version.deb`
+    `sudo apt install -y ./a2d_package_version.deb`
 
     Replace a2d_package_version.deb with the a2d file name
     you downloaded before running this command.
 
     To **uninstall a2d**, follow these steps.
 
-    `sudo apt-get remove --purge a2d`
+    `sudo apt remove --purge a2d`
     
     However, please note that this command won't remove the 
     core Nginx server and other dependencies that were 
@@ -77,7 +77,7 @@ Raspberry Pi OS with Debian version 11 (bullseye).
     
     Remove Nginx and its associated files:
 
-    `sudo apt-get -y remove --purge nginx 
+    `sudo apt -y remove --purge nginx 
     nginx-common nginx-full nginx-core`
     
     Remove Nginx configuration files:
@@ -133,8 +133,8 @@ in addition to Python 3:
     repository:
 
     `sudo apt update`  
-    `sudo apt-get install <package>`  
-    `sudo apt-get upgrade`
+    `sudo apt install <package>`  
+    `sudo apt upgrade`
     
     If you encounter any issues during installation, you 
     can try running:
@@ -272,7 +272,7 @@ Passphrase verification.
 
 **Backup:** Create a backup of your a2d configuration
 files. The backup file's name will be 
-"a2d_config_backup.bin." This file is encoded binary and
+"a2d_config_backup.yaml." This file is encoded binary and
 holds your API credentials. Store it securely.
 
 **Restore:** If you want to revert to a previous 
@@ -290,7 +290,7 @@ caution to maintain the integrity of your a2d configuration.
 - **Invalid Passphrase:** Retry with the correct Passphrase.
 - **Configuration files missing:** Set up Configuration.
 - **Invalid file:** During restore configuration, use the 
-correct a2d_config_backup.bin file.
+correct a2d_config_backup.yaml file.
 - **Configuration file tampered:** If you spot this, avoid 
 using the modified file as it could harm the a2d app.
 
@@ -462,7 +462,7 @@ Solutions are provided below:
 - **Invalid Passphrase:** Retry with the correct Passphrase.
 - **Configuration files missing:** Set up Configuration.
 - **Invalid file:** During restore configuration, use the 
-correct a2d_config_backup.bin file.
+correct a2d_config_backup.yaml file.
 - **Configuration file tampered:** If you spot this, avoid
 using the modified file as it could harm the a2d app.
 

@@ -4,6 +4,7 @@ var logsInterval;
 // Log updates
 function updateLogs() {
     var logsContainer = document.getElementById("logs-container");
+    var counter = 0;
 
     // Make a fetch request to fetch new log entries
     fetch("/fetch-logs")
@@ -19,8 +20,11 @@ function updateLogs() {
 
             if (logs.length > 0) {
                 // Add new log entries
-                logs.forEach(log => {
+                for (var i = 0; i < logs.length; i++) {
+                    var log = logs[i];
                     var logEntry = document.createElement("p");
+
+                    counter++;
 
                     // Split the log into parts: message_id, restOfLog
                     var parts = log.split(" > ");
@@ -29,11 +33,11 @@ function updateLogs() {
 
                     // Create a <span> element for the log entry
                     var logSpan = document.createElement("span");
-                    logSpan.innerHTML = `<em>${message_id}</em>> ${restOfLog}`; // Apply italics to message_id
+                    logSpan.innerHTML = `${logs.length - i}. <em>${message_id}</em>> ${restOfLog}`; // Apply italics to message_id
 
                     logEntry.appendChild(logSpan); // Append the <span> to the log entry
                     logsContainer.appendChild(logEntry);
-                });
+                }
             } else {
                 // Add 'No APRS messages' text
                 var noMessagesElement = document.createElement("p");

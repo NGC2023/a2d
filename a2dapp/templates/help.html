@@ -159,11 +159,11 @@ class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0" style="hei
 
   <h4 id="scrollspyHeading9">Uninstallation:</h4>
   <p>Follow these steps to in your terminal to uninstall a2d from your system<br><br>
-    <i>&nbsp;&nbsp;sudo apt-get remove --purge a2d</i><br><br>
+    <i>&nbsp;&nbsp;sudo apt remove --purge a2d</i><br><br>
     However, please note that this command won't remove the core Nginx server and other dependencies that were installed alongside a2d. 
     To completely remove all a2d dependencies, you can use the following commands:<br><br>
     <b>Remove Nginx and its associated files:</b>
-    <i>&nbsp;&nbsp;sudo apt-get -y remove --purge nginx nginx-common nginx-full nginx-core</i><br>
+    <i>&nbsp;&nbsp;sudo apt -y remove --purge nginx nginx-common nginx-full nginx-core</i><br>
     <b>Remove Nginx configuration files:</b>
     <i>&nbsp;&nbsp;sudo rm -rf /etc/nginx</i><br>
     <b>Remove Nginx default configuration:</b>
@@ -333,5 +333,22 @@ class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0" style="hei
     AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.</p>
+    SOFTWARE.</p><br>
+    <p>
+    License: CC-BY-3.0<br><br>
+
+    a2dapp/static/bootstrap/css/bootstrap_docs_5-3.css<br>
+    Copyright: 2011-2023 The Bootstrap Authors<br>
+    License: CC-BY-3.0<br><br>
+
+    a2dapp/static/bootstrap/js/bootstrap_5-3_mode.js<br>
+    Copyright: 2011-2023 The Bootstrap Authors<br>
+    License: CC-BY-3.0<br><br>
+   
+    We have made modifications to a portion of the Bootstrap code to suit
+    our project's requirements. These minor modifications enables the
+    Color mode toggler from Bootstrap's docs to work with a2d.
+    Licensed under the Creative Commons Attribution 3.0 Unported License.
+    For details, see https://creativecommons.org/licenses/by/3.0/.
+    </p>
 </div>
