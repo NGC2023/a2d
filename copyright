@@ -9,6 +9,16 @@ Copyright: 2023 Yogeswaran Umasankar <kd8mbd@gmail.com>
 License: MIT
 
 Files:
+ a2dapp/static/bootstrap/css/cdn_bootstrap_5-3_min.css
+Copyright: 2011-2023 The Bootstrap Authors
+License: MIT
+
+Files:
+ a2dapp/static/bootstrap/js/cdn_bootstrap_5-3.js
+Copyright: 2011-2023 The Bootstrap Authors
+License: MIT
+
+Files:
  a2dapp/static/bootstrap/css/bootstrap_docs_5-3.css
 Copyright: 2011-2023 The Bootstrap Authors
 License: CC-BY-3.0
