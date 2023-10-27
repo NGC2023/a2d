@@ -211,8 +211,9 @@ your interaction with the a2d app.
 ## Setup Configuration
 
 If it's your first time, the dashboard will show 'Setup
-Configuration' instead of your Callsign. Click "Configuration"
-listed in options in the navigation bar to begin.
+Configuration' instead of your Callsign. Click
+"Configuration" listed in options in the navigation
+bar to begin.
 
 **To complete setup:**
 
