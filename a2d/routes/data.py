@@ -3,10 +3,10 @@ import os
 import sqlite3
 import configparser
 import datetime
-from a2dapp.modals.creds import get_credentials
-from a2dapp.routes.run import restart_service
-from a2dapp.routes.auth import login_required
-from a2dapp.routes.handle_db import reset_dbs
+from a2d.modals.creds import get_credentials
+from a2d.routes.run import restart_service
+from a2d.routes.auth import login_required
+from a2d.routes.handle_db import reset_dbs
 
 data_routes = Blueprint('data', __name__)
 

@@ -22,9 +22,9 @@ runs under the 'a2d' user and group.
 - **Type**: simple
 - **User**: a2d
 - **Group**: a2d
-- **WorkingDirectory**: /usr/share/a2dapp
+- **WorkingDirectory**: /usr/share/a2d
 - **ExecStart**: /usr/bin/python3 -m gunicorn app:app -c 
-/usr/lib/python3/dist-packages/a2dapp/gunicorn_config.py
+/usr/lib/python3/dist-packages/a2d/gunicorn_config.py
 - **Restart**: always
 - **Description**: a2d HTML App
 - **ExecReload**: /bin/kill -HUP $MAINPID

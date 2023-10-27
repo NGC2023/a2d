@@ -1,6 +1,6 @@
 import psutil
 from flask import Blueprint, jsonify
-from a2dapp.routes.auth import login_required
+from a2d.routes.auth import login_required
 
 system_routes = Blueprint('system', __name__)
 

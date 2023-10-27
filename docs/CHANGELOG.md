@@ -2,6 +2,12 @@
 
 All notable changes to a2d will be documented in this file.
 
+## [Version 2.0.3] - 2023-10-27
+
+### Changed
+- **[Change]**: Transition to a consolidated single Python
+package approach.
+
 ## [Version 2.0.1] - 2023-10-09
 
 ### Added

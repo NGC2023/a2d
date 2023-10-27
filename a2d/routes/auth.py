@@ -1,8 +1,8 @@
 import os
 from flask import Blueprint, render_template, request, redirect, session
-from a2dapp.modals.user import verify_pin, create_user, create_user_passphrase, decrypt_user_passphrase
-from a2dapp.modals.creds import save_credentials, get_credentials
-from a2dapp.routes.handle_db import reset_dbs
+from a2d.modals.user import verify_pin, create_user, create_user_passphrase, decrypt_user_passphrase
+from a2d.modals.creds import save_credentials, get_credentials
+from a2d.routes.handle_db import reset_dbs
 from functools import wraps
 import configparser
 

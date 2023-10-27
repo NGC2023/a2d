@@ -2,7 +2,7 @@ import os
 import subprocess
 import datetime
 import re
-from a2dapp.routes.nginx import reload_nginx, read_nginx_config, disable_default_ng, enable_default_ng
+from a2d.routes.nginx import reload_nginx, read_nginx_config, disable_default_ng, enable_default_ng
 
 def read_ssl(cert_file):
     if not cert_file or not os.path.exists(cert_file):

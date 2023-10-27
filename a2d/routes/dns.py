@@ -3,15 +3,15 @@ import subprocess
 import re
 from datetime import datetime
 from flask import Blueprint, request, render_template, jsonify
-from a2dapp.modals.creds import get_credentials
-from a2dapp.routes.auth import login_required
-from a2dapp.routes.certs import read_ssl, a2d_self_ssl, a2d_rm_cassl, a2d_ca_ssl, a2d_ca_list
-from a2dapp.routes.nginx import reload_nginx, read_nginx_config, disable_default_ng, enable_default_ng
+from a2d.modals.creds import get_credentials
+from a2d.routes.auth import login_required
+from a2d.routes.certs import read_ssl, a2d_self_ssl, a2d_rm_cassl, a2d_ca_ssl, a2d_ca_list
+from a2d.routes.nginx import reload_nginx, read_nginx_config, disable_default_ng, enable_default_ng
 
 dns_routes = Blueprint('dns', __name__)
 
 # Define the directory paths
-NGINX_CONFIG_PATH = '/etc/nginx/conf.d/00-a2dapp.conf'
+NGINX_CONFIG_PATH = '/etc/nginx/conf.d/00-a2d.conf'
 SSL_CERT_PATH = '/etc/nginx/ssl/a2d-ssl.crt'
 SSL_KEY_PATH = '/etc/nginx/ssl/a2d-ssl.key'
 

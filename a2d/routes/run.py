@@ -2,7 +2,8 @@ import os
 import subprocess
 import configparser
 from flask import Blueprint, redirect, jsonify
-from a2dapp.routes.auth import login_required
+from a2d.routes.auth import login_required
+from a2d.a2d_utils.a2d_utils import remove_cronjob
 
 run_routes = Blueprint('run', __name__)
 
@@ -56,26 +57,6 @@ def check_cronjob():
         pass  # Handle the case when the file doesn't exist
 
     return runstatus
-
-def remove_cronjob():
-    # Find the cron job that matches the specified command
-    command = '/usr/bin/python3 -m a2d.runscripts'
-
-    # Initialize the lines variable to an empty list to avoid error if file not found
-    lines = []
-    
-    try:
-        with open('/etc/cron.d/a2d', 'r') as cron_file:
-            lines = cron_file.readlines()
-    except FileNotFoundError:
-        return  # Handle the case when the file doesn't exist
-    
-    # Filter out lines that do not contain the specified command
-    filtered_lines = [line for line in lines if not line.strip().endswith(command)]
-
-    # Write the filtered lines back to the /etc/cron.d/a2d.cron file
-    with open('/etc/cron.d/a2d', 'w') as cron_file:
-        cron_file.writelines(filtered_lines)
 
 @run_routes.route('/start-service')
 @login_required

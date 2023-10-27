@@ -2,9 +2,9 @@ import os
 import hashlib
 import yaml
 from flask import Blueprint, request, redirect, render_template, Response
-from a2dapp.routes.auth import login_required
-from a2dapp.modals.user import decrypt_user_passphrase
-from a2dapp.modals.creds import get_credentials
+from a2d.routes.auth import login_required
+from a2d.modals.user import decrypt_user_passphrase
+from a2d.modals.creds import get_credentials
 
 config_routes = Blueprint('config', __name__)
 

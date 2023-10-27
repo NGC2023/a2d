@@ -1,17 +1,17 @@
 import os
 from flask import Flask, render_template, request, session, redirect, jsonify
-from a2dapp.routes.auth import auth_routes
-from a2dapp.routes.run import run_routes
-from a2dapp.routes.dns import dns_routes
-from a2dapp.routes.system import system_routes
-from a2dapp.routes.network import network_routes
-from a2dapp.routes.config import config_routes
-from a2dapp.routes.reset import reset_routes
-from a2dapp.routes.data import data_routes, get_adv_conf_values
-from a2dapp.modals.creds import get_credentials
+from a2d.routes.auth import auth_routes
+from a2d.routes.run import run_routes
+from a2d.routes.dns import dns_routes
+from a2d.routes.system import system_routes
+from a2d.routes.network import network_routes
+from a2d.routes.config import config_routes
+from a2d.routes.reset import reset_routes
+from a2d.routes.data import data_routes, get_adv_conf_values
+from a2d.modals.creds import get_credentials
 
 app = Flask(__name__)
-app.config['APP_VERSION'] = '2.0.1'
+app.config['APP_VERSION'] = '2.0.3'
 
 #Storing session key implemented to avoid nginx error
 SESSION_KEY_FILE = "/etc/a2d/.keys/session_key.bin"

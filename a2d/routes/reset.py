@@ -3,11 +3,11 @@ import sqlite3
 import shutil
 from flask import Blueprint, request
 import configparser
-from a2dapp.routes.auth import login_required
-from a2dapp.modals.user import decrypt_user_passphrase
-from a2dapp.routes.run import remove_cronjob
-from a2dapp.routes.dns import update_nginx_config
-from a2dapp.routes.certs import a2d_rm_selfssl, a2d_ca_list, a2d_rm_cassl, reload_nginx, enable_default_ng
+from a2d.routes.auth import login_required
+from a2d.modals.user import decrypt_user_passphrase
+from a2d.a2d_utils.a2d_utils import remove_cronjob
+from a2d.routes.dns import update_nginx_config
+from a2d.routes.certs import a2d_rm_selfssl, a2d_ca_list, a2d_rm_cassl, reload_nginx, enable_default_ng
 
 reset_routes = Blueprint('reset', __name__)
 

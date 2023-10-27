@@ -1,7 +1,7 @@
 import subprocess
 import re
 
-NGINX_CONFIG_PATH = '/etc/nginx/conf.d/00-a2dapp.conf'
+NGINX_CONFIG_PATH = '/etc/nginx/conf.d/00-a2d.conf'
 CORE_NGINX_CONF = '/etc/nginx/nginx.conf'
 
 def reload_nginx():
