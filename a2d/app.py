@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, redirect, jsonify
+from flask import Flask, render_template, request, session, redirect, jsonify, send_file
 from a2d.routes.auth import auth_routes
 from a2d.routes.run import run_routes
 from a2d.routes.dns import dns_routes
@@ -89,6 +89,11 @@ def home():
 @app.route('/version', methods=['GET'])
 def get_version():
     return jsonify({'version': app.config['APP_VERSION']})
+
+@app.route('/image')
+def get_image():
+    image_path = '/usr/share/images/logo_a2d.png'
+    return send_file(image_path, as_attachment=True)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=9333)
