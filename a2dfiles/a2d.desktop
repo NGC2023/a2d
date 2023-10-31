@@ -2,7 +2,7 @@
 Type=Application
 Name=a2d portal
 Exec=/usr/share/scripts/a2d_desktop_url.sh
-Icon=/usr/share/images/logo_clearbg.png
+Icon=/usr/share/images/logo_a2d.png
 Categories=Utility;HamRadio;
 Comment=APRS to DAPNET portal
 Version=2.0
