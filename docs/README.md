@@ -100,12 +100,7 @@ Raspberry Pi OS with Debian version 11 (bullseye).
     Remove Nginx log files:
 
     `sudo rm -rf /var/log/nginx`
-    
-    Delete the Nginx user and group:
 
-    `sudo deluser nginx`  
-    `sudo delgroup nginx`
-    
     Finally, perform an autoremove to clean up any remaining
     dependencies:
 

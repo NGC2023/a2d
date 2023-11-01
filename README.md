@@ -58,11 +58,6 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
 
     `sudo rm -rf /var/log/nginx`
     
-    Delete the Nginx user and group:
-
-    `sudo deluser nginx`  
-    `sudo delgroup nginx`
-    
     Finally, perform an autoremove to clean up any remaining dependencies:
 
     `sudo apt autoremove`
