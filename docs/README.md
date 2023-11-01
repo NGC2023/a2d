@@ -74,8 +74,13 @@ Raspberry Pi OS with Debian version 11 (bullseye).
     core Nginx server and other dependencies that were 
     installed alongside a2d. To completely remove all a2d 
     dependencies, you can use the following commands:
-    
-    Remove Nginx and its associated files:
+
+    **Warning:** Removing dependencies may adversely impact
+    other applications using the dependencies. If you using
+    nginx server for other applications or you using it as a
+    webserver, DO NOT remove nginx.
+
+    Removing Nginx and its associated files:
 
     `sudo apt -y remove --purge nginx 
     nginx-common nginx-full nginx-core`

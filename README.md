@@ -24,7 +24,7 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
     You can utilize various packages like VNC or SSH to set up your Raspberry Pi even if you intend to run it headlessly (without a physical display). This approach provides flexibility while maintaining a small footprint, making it a versatile choice for HAM Radio enthusiasts.
 
     **Installation:**  
-    You can install a2d from GitHub Packages. Download the Debian package from [a2d GitHub Releases](https://github.com/NGC2023/a2d/releases). Navigate to the directory where you downloaded the Debian package using the command line and run the following command:  
+    You can install a2d from GitHub Packages. Download the Debian package from [a2d GitHub Releases](https://github.com/NGC2023/a2d/releases). Navigate to the directory where you downloaded the Debian package using the command line and run the following command:
 
     `sudo apt install -y ./a2d_package_version.deb`
 
@@ -35,8 +35,10 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
     `sudo apt remove --purge a2d`
     
     However, please note that this command won't remove the core Nginx server and other dependencies that were installed alongside a2d. To completely remove all a2d dependencies, you can use the following commands:
-    
-    Remove Nginx and its associated files:
+
+    **Warning:** Removing dependencies may adversely impact other applications using the dependencies. If you using nginx server for other applications or you using it as a webserver, DO NOT remove nginx.
+
+    Removing Nginx and its associated files:
 
     `sudo apt -y remove --purge nginx nginx-common nginx-full nginx-core`
     
