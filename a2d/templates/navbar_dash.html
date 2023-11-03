@@ -20,6 +20,7 @@
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#advBackdrop" style="cursor: pointer;">Advanced</a></li>
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#expimpBackdrop" style="cursor: pointer;">Backup . Restore</a></li>
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#pinBackdrop" style="cursor: pointer;">Change PIN</a></li>
+              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#resetBackdrop" style="cursor: pointer;">Reset Portal</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/help-full">Info</a></li>
             </ul>
@@ -238,3 +239,46 @@
       </div>
   </div>
 </div>
+
+<!-- Reset portal -->
+<div class="modal fade" id="resetBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h1 class="modal-title fs-5" id="staticBackdropLabel">Factory Reset Portal</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form id="resetForm" action="/reset-portal" method="POST">
+          <div class="modal-body">
+          <h4 style="color: red;">Warning:</h4>
+          <h6 style="color: #d4660c;">Performing this action will result in the deletion of all user files and a factory reset of a2d</h6>
+          <h6 style="color: #d4660c;">Deleting any SSL certificates will result in the restoration of default a2d server settings. If you choose to delete SSL, access a2d using default port '9331'</h6>
+          <h6 style="color: #d4660c;">Deleting CA SSL certificates will delete all Certbot stored certificates</h6></br>
+        
+          <label for="passphrase" class="form-label">Enter Passphrase:</label>
+          <input type="password" class="form-control" id="passphrase" name="passphrase"><br>
+
+          <label for="reset_confirm" class="form-label">Type DELETE to Confirm Factory Reset:</label>
+          <input type="text" class="form-control" id="reset_confirm" name="reset_confirm" required><br>
+
+          <div class="form-check form-switch">
+          <input type="checkbox" class="form-check-input" role="switch" id="self_ssl_delete" name="self_ssl_delete">
+          <label for="self_ssl_delete" class="form-check-label">Delete Self Signed SSL cert</label></div><br>
+
+          <div class="form-check form-switch">
+          <input type="checkbox" class="form-check-input" role="switch" id="ca_ssl_delete" name="ca_ssl_delete">
+          <label for="ca_ssl_delete" class="form-check-label">Delete ALL CA Signed SSL certs</label></div><br>
+
+          <!-- CA status message element -->
+              <span id="reset-message" style="color: #d4660c; font-weight: bold;"></span>
+            </div>
+          <div class="modal-footer">
+          &nbsp;
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-danger">Factory Reset</button>
+          </div>
+      </form>
+      </div>
+  </div>
+  </div>

@@ -52,8 +52,10 @@ class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0" style="hei
     Verify with your Passphrase. Upon successful verification, proceed to the page for setting a new PIN and Passphrase.<br>
   </p>
   <div class="alert alert-danger" role="alert">
-    <h5>Passphrase Reminder:</h5> Note that if you forget your Passphrase, there's no reset option. Reinstalling the a2d app is the 
-    only recourse. This is intentionally designed to protect your API credentials.
+    <h5>Passphrase Reminder:</h5> Note: There's no Passphrase reset option. Removing and Reinstalling the a2d portal is the only 
+    recourse to reset your Passphrase (Warning: You will loose all your a2d data). After uninstalling a2d, please use the following 
+    command to remove any existing user configuration files before proceeding with the reinstallation.<br><br>
+    <i>&nbsp;&nbsp;sudo rm -r /etc/a2d`</i><br>
   </div><br>
 
   <h4 id="scrollspyHeading3">Dashboard Overview:</h4>
@@ -159,7 +161,9 @@ class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0" style="hei
 
   <h4 id="scrollspyHeading9">Uninstallation:</h4>
   <p>Follow these steps to in your terminal to uninstall a2d from your system<br><br>
-    <i>&nbsp;&nbsp;sudo apt remove --purge a2d</i><br><br>
+    For a thorough removal of user configuration files, it is advisable to uninstall the application after performing 
+    a Factory Reset in the a2d portal (Check Reset a2d section). This ensures a clean removal of user-specific settings.<br><br>
+    <i>&nbsp;&nbsp;sudo apt purge a2d</i><br><br>
     However, please note that this command won't remove the core Nginx server and other dependencies that were installed alongside a2d. 
     To completely remove all a2d dependencies, you can use the following commands:<br><br>
     <b>Remove Nginx and its associated files:</b>

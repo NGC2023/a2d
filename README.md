@@ -30,9 +30,9 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
 
     Replace a2d_package_version.deb with the a2d file name you downloaded before running this command.
 
-    To **uninstall a2d**, follow these steps.
+    To **uninstall a2d**, follow these steps. For a thorough removal of user configuration files, it is advisable to uninstall the application after performing a Factory Reset in the a2d portal (Check Resetting a2d portal section). This ensures a clean removal of user-specific settings.
 
-    `sudo apt remove --purge a2d`
+    `sudo apt purge a2d`
     
     However, please note that this command won't remove the core Nginx server and other dependencies that were installed alongside a2d. To completely remove all a2d dependencies, you can use the following commands:
 
@@ -67,11 +67,11 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
     1. python3-cryptography
     2. python3-requests
     3. python3-flask
-    4. python3-crontab
-    5. python3-gunicorn
-    6. nginx
-    7. certbot
-    8. python3-psutil
+    4. python3-gunicorn
+    5. nginx
+    6. certbot
+    7. python3-psutil
+    8. python3-yaml
 
     Gunicorn serves as the WSGI server that powers the a2d user interface, while Nginx is used as a reverse proxy server. Certbot is essential for creating and maintaining the required SSL certificates.
 
@@ -89,7 +89,7 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
 
 ## Configuration and Usage
 
-a2d version 2.0.0 is designed with a web UI.
+a2d is designed with a web UI.
 
 ## Accessing a2d UI
 
@@ -105,7 +105,9 @@ Security is paramount in the a2d portal. Here's how to safeguard your access:
 
 **PIN Recovery:** If you forget your PIN, use your Passphrase to create a new one. Click "Forgot PIN!" on the login page, verify with your Passphrase, and proceed to set a new PIN.
 
-Note: There's no Passphrase reset option. Reinstalling the a2d app is the only recourse to reset your Passphrase.
+Note: There's no Passphrase reset option. Removing and Reinstalling the a2d portal is the only recourse to reset your Passphrase (Warning: You will loose all your a2d data). After uninstalling a2d, please use the following command to remove any existing user configuration files before proceeding with the reinstallation.
+
+`sudo rm -r /etc/a2d`
 
 ## Dashboard Overview
 
