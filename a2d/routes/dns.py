@@ -310,5 +310,11 @@ def get_ctl_status(ctl_name):
         return ctl_status
         
     except subprocess.CalledProcessError as e:
+        if e.returncode == 4:
+            ctl_status = '(Not installed)'
+            return ctl_status
+        elif e.returncode == 3:
+            ctl_status = '(Not running)'
+            return ctl_status
         ctl_status = str(e)
         return ctl_status

@@ -1,34 +1,11 @@
-Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Source: https://github.com/NGC2023/a2d.git
-Upstream-Name: a2d
-Upstream-Contact: Yogeswaran Umasankar <kd8mbd@gmail.com>
-
-Files:
- *
-Copyright: 2023 Yogeswaran Umasankar <kd8mbd@gmail.com>
 License: MIT
+Copyright: 2024 NGC2023 <kd8mbd@gmail.com>
 
 Files:
  a2dapp/static/bootstrap/css/cdn_bootstrap_5-3_min.css
-Copyright: 2011-2023 The Bootstrap Authors
-License: MIT
-
-Files:
  a2dapp/static/bootstrap/js/cdn_bootstrap_5-3.js
-Copyright: 2011-2023 The Bootstrap Authors
-License: MIT
+ Copyright: 2011-2023 The Bootstrap Authors
 
-Files:
- a2dapp/static/bootstrap/css/bootstrap_docs_5-3.css
-Copyright: 2011-2023 The Bootstrap Authors
-License: CC-BY-3.0
-
-Files:
- a2dapp/static/bootstrap/js/bootstrap_5-3_mode.js
-Copyright: 2011-2023 The Bootstrap Authors
-License: CC-BY-3.0
-
-License: MIT
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
@@ -48,6 +25,12 @@ License: MIT
  SOFTWARE.
 
 License: CC-BY-3.0
+
+Files:
+ a2dapp/static/bootstrap/css/bootstrap_docs_5-3.css
+ a2dapp/static/bootstrap/js/bootstrap_5-3_mode.js
+ Copyright: 2011-2023 The Bootstrap Authors
+
  Creative Commons Legal Code
  .
  Attribution 3.0 Unported

@@ -5,12 +5,16 @@ NGINX_CONFIG_PATH = '/etc/nginx/conf.d/00-a2d.conf'
 CORE_NGINX_CONF = '/etc/nginx/nginx.conf'
 
 def reload_nginx():
+    if not is_nginx_installed():
+        return
     try:
         subprocess.run(["systemctl", "reload", "nginx"], check=True)
     except subprocess.CalledProcessError as e:
         return "Error reloading nginx:", e
 
 def read_nginx_config(key):
+    if not is_nginx_installed():
+        return
     try:
         with open(NGINX_CONFIG_PATH, 'r') as config_file:
             for line in config_file:
@@ -20,6 +24,8 @@ def read_nginx_config(key):
         return f"Error reading nginx conf: {e}"
 
 def disable_default_ng():
+    if not is_nginx_installed():
+        return
     with open(CORE_NGINX_CONF, 'r') as nginx_conf_file:
         nginx_conf_content = nginx_conf_file.readlines()
 
@@ -33,6 +39,8 @@ def disable_default_ng():
         nginx_conf_file.writelines(nginx_conf_content)
 
 def enable_default_ng():
+    if not is_nginx_installed():
+        return 
     with open(CORE_NGINX_CONF, 'r') as nginx_conf_file:
         nginx_conf_content = nginx_conf_file.readlines()
 
@@ -43,3 +51,15 @@ def enable_default_ng():
 
     with open(CORE_NGINX_CONF, 'w') as nginx_conf_file:
         nginx_conf_file.writelines(nginx_conf_content)
+
+def is_nginx_installed():
+    try:
+        # Try checking the nginx status using systemctl
+        subprocess.check_output(['systemctl', 'status', 'nginx'], stderr=subprocess.STDOUT)
+        return True
+    except subprocess.CalledProcessError as e:
+        if e.returncode == 4:
+            return False
+        return False
+    except FileNotFoundError:
+        return False

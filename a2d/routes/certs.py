@@ -64,10 +64,14 @@ def a2d_self_ssl(common_name, validity_days, organization_name):
         return "Error generating SSL"
 
 def a2d_rm_cassl(common_name):
+    if not common_name:
+        return
     try:
         # Execute the certbot command to delete the certificate
         subprocess.run(["certbot", "delete", "--cert-name", common_name, "--non-interactive"], check=True)
         return "caSSL removed"
+    except FileNotFoundError:
+        return "Error removing SSL"
     except subprocess.CalledProcessError as e:
         return "Error removing SSL"
 

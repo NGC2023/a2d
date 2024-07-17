@@ -2,6 +2,18 @@
 
 All notable changes to a2d will be documented in this file.
 
+## [Version 2.0.4] - 2024-07-17
+
+### Changed
+- **[Change]**: Included tests for a2d.
+- **[Change]**: Updated dependencies in pyproject.toml.
+- **[Change]**: Set default port number in a2d.desktop
+to 9333.
+
+### Removed
+- **[Removal]**: Removed nginx and certbot as hard
+dependencies.
+
 ## [Version 2.0.3] - 2023-10-27
 
 ### Changed

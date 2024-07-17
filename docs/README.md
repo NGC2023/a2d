@@ -34,8 +34,8 @@ well-suited for these purposes.
 **Debian 12**: a2d has been thoroughly tested on Debian 12.
 **Debian 12 (VMware)**: Tested on Debian 12 within a 
 VMware environment.
-**Raspberry Pi OS with Debian 11 (bullseye)**: Tested on 
-Raspberry Pi OS with Debian version 11 (bullseye).
+**Raspberry Pi OS with Debian 12 (bookworm)**: Tested on
+Raspberry Pi OS with Debian version 12 (bookworm).
 
     You can utilize various packages like VNC or SSH to 
     set up your Raspberry Pi even if you intend to run 
@@ -65,6 +65,27 @@ Raspberry Pi OS with Debian version 11 (bullseye).
 
     Replace a2d_package_version.deb with the a2d file name
     you downloaded before running this command.
+
+    To enable access to a2d over the network from another
+    system, it is suggested to install additional packages
+    like nginx and certbot.
+
+    While the a2d interface supports any reverse proxy and
+    HTTP server, it provides options for limited management
+    of nginx. However, please note that nginx is not installed
+    by default. If you choose to use nginx, you will need to
+    install and can configure via a2d.
+
+    To create and maintain CA SSL certificates, certbot is
+    required. certbot is not installed by default but is
+    essential for generating CA SSL certificates and managing
+    them automatically. The a2d interface works with certbot
+    to handle SSLs related to a2d.
+
+    Install nginx and certbot:
+
+    `sudo apt update`
+    `sudo apt install <package>`
 
     To **uninstall a2d**, follow these steps. For a thorough
     removal of user configuration files, it is advisable to
@@ -123,10 +144,12 @@ in addition to Python 3:
     2. python3-requests
     3. python3-flask
     4. python3-gunicorn
-    5. nginx
-    6. certbot
-    7. python3-psutil
-    8. python3-yaml
+    5. python3-psutil
+    6. python3-yaml
+    7. nginx (not default installation, suggested for
+       remote access)
+    8. certbot (not default installation, suggested for
+       remote access)
 
     Gunicorn serves as the WSGI server that powers the a2d 
     user interface, while Nginx is used as a reverse proxy
@@ -155,12 +178,13 @@ a2d is designed with a web UI.
 
 ## Accessing a2d UI
 
-Once a2d is installed, open a web browser on a computer
-connected to the local network and visit
-http://localhost:9331 or http://ipaddress:9331. The default
-a2d communication port is 9331 over http. Alternatively, you
-can access the a2d portal directly from the application list
-on your Linux GUI desktop after installing a2d.
+Once a2d is installed, open a web browser in the same
+computer and visit http://localhost:9333 or
+http://ipaddress:9333. The default a2d communication port
+is 9333 over http. If you installed nginx then the port
+is 9331 (local and remote). Alternatively, you can access
+the a2d portal directly from the application list on your
+Linux GUI desktop after installing a2d.
 
 ## Register PIN and Passphrase
 
@@ -325,7 +349,7 @@ the receiver's (your) callsign (e.g., NY3W-7), and `Hello OM!`
 is the message. If the DestinationSSID displays 0, it means
 the message is targeted for your callsign without any SSID.
 
-## Server Settings
+## Server Settings (Only if nginx & certbot installed)
 a2d offers server settings and advanced options for users who
 want to customize their server. Make changes cautiously. You
 can use a2d with its default settings for local access. If 

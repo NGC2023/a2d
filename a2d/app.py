@@ -11,7 +11,7 @@ from a2d.routes.data import data_routes, get_adv_conf_values
 from a2d.modals.creds import get_credentials
 
 app = Flask(__name__)
-app.config['APP_VERSION'] = '2.0.3'
+app.config['APP_VERSION'] = '2.0.4'
 
 #Storing session key implemented to avoid nginx error
 SESSION_KEY_FILE = "/etc/a2d/.keys/session_key.bin"

@@ -19,7 +19,7 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
 **Compatibility**
 - **Debian 12**: a2d has been thoroughly tested on Debian 12.
 - **Debian 12 (VMware)**: Tested on Debian 12 within a VMware environment.
-- **Raspberry Pi OS with Debian 11 (bullseye)**: Tested on Raspberry Pi OS with Debian version 11 (bullseye).
+- **Raspberry Pi OS with Debian 12 (bookworm)**: Tested on Raspberry Pi OS with Debian version 12 (bookworm).
 
     You can utilize various packages like VNC or SSH to set up your Raspberry Pi even if you intend to run it headlessly (without a physical display). This approach provides flexibility while maintaining a small footprint, making it a versatile choice for HAM Radio enthusiasts.
 
@@ -30,31 +30,42 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
 
     Replace a2d_package_version.deb with the a2d file name you downloaded before running this command.
 
+    To enable access to a2d over the network from another system, it is suggested to install additional packages like nginx and certbot.
+
+    While the a2d interface supports any reverse proxy and HTTP server, it provides options for limited management of nginx. However, please note that nginx is not installed by default. If you choose to use nginx, you will need to install and can configure via a2d.
+
+    To create and maintain CA SSL certificates, certbot is required. certbot is not installed by default but is essential for generating CA SSL certificates and managing them automatically. The a2d interface works with certbot to handle SSLs related to a2d.
+
+    Install nginx and certbot:
+
+    `sudo apt update`
+    `sudo apt install <package>`
+
     To **uninstall a2d**, follow these steps. For a thorough removal of user configuration files, it is advisable to uninstall the application after performing a Factory Reset in the a2d portal (Check Resetting a2d portal section). This ensures a clean removal of user-specific settings.
 
     `sudo apt purge a2d`
     
-    However, please note that this command won't remove the core Nginx server and other dependencies that were installed alongside a2d. To completely remove all a2d dependencies, you can use the following commands:
+    However, please note that this command won't remove the core nginx server and other dependencies that were installed alongside a2d. To completely remove all a2d dependencies, you can use the following commands:
 
     **Warning:** Removing dependencies may adversely impact other applications using the dependencies. If you using nginx server for other applications or you using it as a webserver, DO NOT remove nginx.
 
-    Removing Nginx and its associated files:
+    Removing nginx and its associated files:
 
     `sudo apt -y remove --purge nginx nginx-common nginx-full nginx-core`
     
-    Remove Nginx configuration files:
+    Remove nginx configuration files:
 
     `sudo rm -rf /etc/nginx`
     
-    Remove Nginx default configuration:
+    Remove nginx default configuration:
 
     `sudo rm -rf /etc/default/nginx`
     
-    Remove Nginx init.d script:
+    Remove nginx init.d script:
 
     `sudo rm -rf /etc/init.d/nginx`
     
-    Remove Nginx log files:
+    Remove nginx log files:
 
     `sudo rm -rf /var/log/nginx`
     
@@ -68,18 +79,17 @@ a2d utilizes the APRS API to retrieve APRS messages for a callsign and relays th
     2. python3-requests
     3. python3-flask
     4. python3-gunicorn
-    5. nginx
-    6. certbot
-    7. python3-psutil
-    8. python3-yaml
+    5. python3-psutil
+    6. python3-yaml
+    7. nginx (not default installation, suggested for remote access)
+    8. certbot (not default installation, suggested for remote access)
 
     Gunicorn serves as the WSGI server that powers the a2d user interface, while Nginx is used as a reverse proxy server. Certbot is essential for creating and maintaining the required SSL certificates.
 
     If you prefer to install dependencies manually, you can use the following commands to install from the apt repository:
 
     `sudo apt update`  
-    `sudo apt install <package>`  
-    `sudo apt upgrade`
+    `sudo apt install <package>`
     
     If you encounter any issues during installation, you can try running:
 
@@ -93,7 +103,7 @@ a2d is designed with a web UI.
 
 ## Accessing a2d UI
 
-Once a2d is installed, open a web browser on a computer connected to the local network and visit http://localhost:9331 or http://ipaddress:9331. The default a2d communication port is 9331 over http. Alternatively, you can access the a2d portal directly from the application list on your Linux GUI desktop after installing a2d.
+Once a2d is installed, open a web browser in the same computer and visit http://localhost:9333 or http://ipaddress:9333. The default a2d communication port is 9333 over http. If you installed nginx then the port is 9331 (local and remote). Alternatively, you can access the a2d portal directly from the application list on your Linux GUI desktop after installing a2d.
 
 ## Register PIN and Passphrase
 
@@ -196,7 +206,7 @@ a2d offers server settings and advanced options for users who want to customize 
 - **Server Status:** Provides essential information, including the start time of Nginx and Gunicorn, Listen Port, Server Name, SSL Status, and SSL Certificate details such as Common Name (CN), Organization Name (O), and Expiry Date.
 - **Network Health:** Displays the Round Trip Time (RTT) to APRS and DAPNET servers, indicating the speed at which data can transfer between your system and their servers.
 
-## Server Configuration
+## Server Configuration (Only if nginx & certbot installed)
 
 The server configuration allows you to modify a2d's default server settings. a2d's default settings include Listen Port: 9331, Server Name: _, and SSL disabled.
 

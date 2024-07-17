@@ -164,19 +164,19 @@ class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0" style="hei
     For a thorough removal of user configuration files, it is advisable to uninstall the application after performing 
     a Factory Reset in the a2d portal (Check Reset a2d section). This ensures a clean removal of user-specific settings.<br><br>
     <i>&nbsp;&nbsp;sudo apt purge a2d</i><br><br>
-    However, please note that this command won't remove the core Nginx server and other dependencies that were installed alongside a2d. 
+    However, please note that this command won't remove the core nginx server and other dependencies that were installed alongside a2d. 
     To completely remove all a2d dependencies, you can use the following commands:<br><br>
-    <b>Remove Nginx and its associated files:</b>
+    <b>Remove nginx and its associated files:</b>
     <i>&nbsp;&nbsp;sudo apt -y remove --purge nginx nginx-common nginx-full nginx-core</i><br>
-    <b>Remove Nginx configuration files:</b>
+    <b>Remove nginx configuration files:</b>
     <i>&nbsp;&nbsp;sudo rm -rf /etc/nginx</i><br>
-    <b>Remove Nginx default configuration:</b>
+    <b>Remove nginx default configuration:</b>
     <i>&nbsp;&nbsp;sudo rm -rf /etc/default/nginx</i><br>
-    <b>Remove Nginx init.d script:</b>
+    <b>Remove nginx init.d script:</b>
     <i>&nbsp;&nbsp;sudo rm -rf /etc/init.d/nginx</i><br>
-    <b>Remove Nginx log files:</b>
+    <b>Remove nginx log files:</b>
     <i>&nbsp;&nbsp;sudo rm -rf /var/log/nginx</i><br><br>
-    <b>Delete the Nginx user and group:</b><br><br>
+    <b>Delete the nginx user and group:</b><br><br>
     <i>&nbsp;&nbsp;sudo deluser nginx</i><br>
     <i>&nbsp;&nbsp;sudo delgroup nginx</i><br><br>
     Finally, perform an autoremove to clean up any remaining dependencies:<br><br>
@@ -209,7 +209,7 @@ class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0" style="hei
     transfer between your system and their servers.<br><br>
     </p>
     
-    <h4>Server Configuration:</h4>
+    <h4>Server Configuration: (Only if nginx & certbot installed)</h4>
     <p>
     The server configuration allows you to modify a2d's default server settings. a2d's default settings include Listen Port: 9331, 
     Server Name: _, and SSL disabled.<br>
