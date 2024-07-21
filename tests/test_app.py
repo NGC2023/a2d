@@ -23,7 +23,7 @@ def test_get_version(client):
     """Test the version route."""
     rv = client.get('/version')
     assert rv.status_code == 200
-    assert rv.json == {'version': '2.0.4'}
+    assert rv.json == {'version': '2.0.5'}
 
 def test_session_key_generation(monkeypatch):
     """Test session key generation and loading."""

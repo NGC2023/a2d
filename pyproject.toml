@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "a2d"
-version = "2.0.4"
+version = "2.0.5"
 description = "APRS to DAPNET portal"
 keywords = ["hamradio"]
 license = "MIT, CC-BY-3.0"
@@ -8,7 +8,6 @@ homepage = "https://github.com/NGC2023/a2d"
 repository = "https://github.com/NGC2023/a2d.git"
 authors = ["NGC2023 <kd8mbd@gmail.com>"]
 maintainers = ["NGC2023 <kd8mbd@gmail.com>"]
-readme = "docs/README.md"
 packages = [
     {include = "a2d"}
 ]
@@ -26,6 +25,8 @@ pyyaml = "*"
 pytest = "^6.0"
 pytest-flask = "*"
 psutil = "*"
+mkdocs = "*"
+mkdocs-bootstrap = "*"
 
 [build-system]
 requires = ["poetry-core"]

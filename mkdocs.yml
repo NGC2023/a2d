@@ -1,0 +1,53 @@
+site_name: a2d
+site_description: APRS to DAPNET portal
+repo_url: https://github.com/NGC2023/a2d
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.footer
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default 
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+use_directory_urls: false
+
+nav:
+  - Home: "index.md"
+  - Installation: "install.md"
+  - Configuration and Usage:
+    - Access a2d UI: "usage/access.md"
+    - Dashboard Overview: "usage/dash.md"
+    - Message Structure: "usage/msg.md"
+    - Server Settings: "usage/srv.md"
+    - Error Messages: "usage/err.md"
+  - License: "lic.md"
+  - Change Log: "changes.md"
+  - Authors and Contributors: "authors.md"
+  - Acknowledgements: "ack.md"
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/NGC2023
+
+copyright: Copyright &copy; 2023 - 2024 NGC2023. MIT, CC-BY-3.0.

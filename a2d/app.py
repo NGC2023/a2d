@@ -8,10 +8,11 @@ from a2d.routes.network import network_routes
 from a2d.routes.config import config_routes
 from a2d.routes.reset import reset_routes
 from a2d.routes.data import data_routes, get_adv_conf_values
+from a2d.routes.docs import docs_routes
 from a2d.modals.creds import get_credentials
 
 app = Flask(__name__)
-app.config['APP_VERSION'] = '2.0.4'
+app.config['APP_VERSION'] = '2.0.5'
 
 #Storing session key implemented to avoid nginx error
 SESSION_KEY_FILE = "/etc/a2d/.keys/session_key.bin"
@@ -55,6 +56,7 @@ app.register_blueprint(dns_routes)
 app.register_blueprint(system_routes)
 app.register_blueprint(network_routes)
 app.register_blueprint(reset_routes)
+app.register_blueprint(docs_routes)
 
 @app.route('/')
 def home():
