@@ -1,25 +1,24 @@
-- **Navigation Bar:** Provides convenient links and icons for easy access to
+**Navigation Bar:** Provides convenient links and icons for easy access to
   various sections such as Server, Mode (Light, Dark, and Auto), Options, and
   Logout. The Options section includes Configuration, Advanced Options,
   Backup/Restore Configuration, Change PIN, and Information.
 
-- **Dashboard:** Displays Callsign, a2d Status, Run Interval, Last Run,
+**Dashboard:** Displays Callsign, a2d Status, Run Interval, Last Run,
   Destination SSIDs. Start/Stop Relay buttons.
 
-- **System Health:** Displays CPU temperature, Memory usage, and CPU Load.
+**System Health:** Displays CPU temperature, Memory usage, and CPU Load.
 
-- **APRS to DAPNET Transmits:** Shows logs of APRS to DAPNET transmitted
-  messages.
+**APRS to DAPNET Transmits:** Shows logs of APRS to DAPNET transmitted messages.
 
 a2d app offers three screen modes with Bootstrap v5.3 support: Light, Dark, and
 Auto.
 
-- **Light Mode:** Provides a clean and bright interface for comfortable usage.
+**Light Mode:** Provides a clean and bright interface for comfortable usage.
 
-- **Dark Mode:** Offers a sleek, darker interface that's easy on the eyes,
+**Dark Mode:** Offers a sleek, darker interface that's easy on the eyes,
   especially in low-light conditions.
 
-- **Auto Mode:** Adapts to your local system settings, ensuring a seamless
+**Auto Mode:** Adapts to your local system settings, ensuring a seamless
   experience that aligns with your device's theme.
 
 Choose the mode that suits your preferences and enhances your interaction with

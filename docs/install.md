@@ -9,6 +9,8 @@ the following command:
 
 `sudo apt install -y ./<a2d package>.deb`
 
+`sudo apt install -y ./<a2d-doc package>.deb`
+
 Replace a2d_package_version.deb with the a2d file name you downloaded before
 running this command.
 
@@ -96,7 +98,8 @@ maintaining the required SSL certificates.
 If you prefer to install dependencies manually, you can use the following
 commands to install from the apt repository:
 
-`sudo apt update`  
+`sudo apt update`
+
 `sudo apt install <package>`
 
 If you encounter any issues during installation, you can try running:
