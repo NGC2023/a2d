@@ -109,6 +109,7 @@ GitHub Releases</a>. Navigate to the
 directory where you downloaded the Debian package using the command line and run
 the following command:</p>
 <p><code>sudo apt install -y ./&lt;a2d package&gt;.deb</code></p>
+<p><code>sudo apt install -y ./&lt;a2d-doc package&gt;.deb</code></p>
 <p>Replace a2d_package_version.deb with the a2d file name you downloaded before
 running this command.</p>
 <p>To enable access to a2d over the network from another system, it is suggested to
@@ -169,8 +170,8 @@ Nginx is used as a reverse proxy server. Certbot is essential for creating and
 maintaining the required SSL certificates.</p>
 <p>If you prefer to install dependencies manually, you can use the following
 commands to install from the apt repository:</p>
-<p><code>sudo apt update</code><br />
-<code>sudo apt install &lt;package&gt;</code></p>
+<p><code>sudo apt update</code></p>
+<p><code>sudo apt install &lt;package&gt;</code></p>
 <p>If you encounter any issues during installation, you can try running:</p>
 <p><code>sudo apt --fix-broken install</code></p>
 <p>This will help resolve any broken dependencies and ensure that a2d operates
