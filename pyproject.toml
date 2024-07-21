@@ -26,7 +26,7 @@ pytest = "^6.0"
 pytest-flask = "*"
 psutil = "*"
 mkdocs = "*"
-mkdocs-bootstrap = "*"
+mkdocs-material = "*"
 
 [build-system]
 requires = ["poetry-core"]

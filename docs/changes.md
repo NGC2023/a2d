@@ -1,5 +1,11 @@
 All notable changes to a2d will be documented in this file.
 
+### [Version 2.0.5] - 2024-07-21
+
+#### Change
+- Created new documentation using MkDocs.
+- Linked the App Info section to the new documentation.
+
 ### [Version 2.0.4] - 2024-07-17
 
 #### Change
